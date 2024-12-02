@@ -4,7 +4,6 @@ import { Mock } from 'vitest'
 import { Config } from '@stone-js/config'
 import { ErrorHandler, Kernel } from '@stone-js/core'
 import { NodeHTTPAdapter } from '../src/NodeHttpAdapter'
-import { HTTP_INTERNAL_SERVER_ERROR } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../src/errors/NodeHttpAdapterError'
 import { nodeHttpErrorHandlerResolver, nodeHttpKernelResolver, nodeHttpAdapterResolver } from '../src/resolvers'
 
@@ -27,14 +26,14 @@ describe('NodeHttpAdapter Resolvers', () => {
       const handler = nodeHttpErrorHandlerResolver(mockBlueprint)
       expect(handler).toBeInstanceOf(ErrorHandler)
       expect(handler.report).toBeInstanceOf(Function)
-      expect(handler.render(new NodeHttpAdapterError('simple error'))).toBe(HTTP_INTERNAL_SERVER_ERROR)
+      expect(() => handler.render(new NodeHttpAdapterError('simple error'))).toThrow(NodeHttpAdapterError)
     })
 
     it('should create an ErrorHandler and populate server response with `httpError` when there is a context', () => {
       const rawResponse = { statusCode: 0, statusMessage: '', setHeaders: vi.fn(), setHeader: vi.fn(), end: vi.fn() }
       const httpError = { statusCode: 404, statusMessage: 'Not Found', headers: { 'Content-Type': 'application/json' }, body: 'Not Found' } as unknown as Error
       const handler = nodeHttpErrorHandlerResolver(mockBlueprint)
-      expect(handler.render(new NodeHttpAdapterError('simple error', { cause: httpError, metadata: { rawResponse, rawEvent: {} } }))).toBe(404)
+      expect(handler.render(new NodeHttpAdapterError('simple error', { cause: httpError, metadata: { rawResponse, rawEvent: {} } }))).toBe(rawResponse)
       expect(rawResponse.statusCode).toBe(404)
       expect(rawResponse.statusMessage).toBe('Not Found')
       expect(rawResponse.setHeaders).toHaveBeenCalledWith({ 'Content-Type': 'application/json' })
@@ -45,7 +44,7 @@ describe('NodeHttpAdapter Resolvers', () => {
       const rawResponse = { statusCode: 0, statusMessage: '', setHeaders: vi.fn(), setHeader: vi.fn(), end: vi.fn() }
       const httpError = { statusCode: 404, statusMessage: 'Not Found', headers: { 'Content-Type': 'application/json' }, body: { foo: 'bar' } } as unknown as Error
       const handler = nodeHttpErrorHandlerResolver(mockBlueprint)
-      expect(handler.render(new NodeHttpAdapterError('simple error', { cause: httpError, metadata: { rawResponse, rawEvent: {} } }))).toBe(404)
+      expect(handler.render(new NodeHttpAdapterError('simple error', { cause: httpError, metadata: { rawResponse, rawEvent: {} } }))).toBe(rawResponse)
       expect(rawResponse.statusCode).toBe(404)
       expect(rawResponse.statusMessage).toBe('Not Found')
       expect(rawResponse.setHeaders).toHaveBeenCalledWith({ 'Content-Type': 'application/json' })
@@ -56,7 +55,7 @@ describe('NodeHttpAdapter Resolvers', () => {
       const rawResponse = { statusCode: 0, statusMessage: '', setHeaders: vi.fn(), setHeader: vi.fn(), end: vi.fn() }
       const httpError = { statusCode: 404, statusMessage: 'Not Found', headers: { 'Content-Type': 'application/json' } } as unknown as Error
       const handler = nodeHttpErrorHandlerResolver(mockBlueprint)
-      expect(handler.render(new NodeHttpAdapterError('simple error', { cause: httpError, metadata: { rawResponse, rawEvent: {} } }))).toBe(404)
+      expect(handler.render(new NodeHttpAdapterError('simple error', { cause: httpError, metadata: { rawResponse, rawEvent: {} } }))).toEqual(rawResponse)
       expect(rawResponse.statusCode).toBe(404)
       expect(rawResponse.statusMessage).toBe('Not Found')
       expect(rawResponse.setHeaders).toHaveBeenCalledWith({ 'Content-Type': 'application/json' })
@@ -67,7 +66,7 @@ describe('NodeHttpAdapter Resolvers', () => {
       (mime.getType as Mock).mockReturnValueOnce('application/json')
       const rawResponse = { statusCode: 0, statusMessage: '', setHeaders: vi.fn(), setHeader: vi.fn(), end: vi.fn() }
       const handler = nodeHttpErrorHandlerResolver(mockBlueprint)
-      expect(handler.render(new NodeHttpAdapterError('simple error', { metadata: { rawResponse, rawEvent: {} } }))).toBe(500)
+      expect(handler.render(new NodeHttpAdapterError('simple error', { metadata: { rawResponse, rawEvent: {} } }))).toBe(rawResponse)
       expect(rawResponse.statusCode).toBe(500)
       expect(rawResponse.statusMessage).toBe('Internal Server Error')
       expect(rawResponse.setHeader).toHaveBeenCalledWith('Content-Type', 'application/json')
@@ -79,7 +78,7 @@ describe('NodeHttpAdapter Resolvers', () => {
       (mime.getType as Mock).mockReturnValueOnce(undefined)
       const rawResponse = { statusCode: 0, statusMessage: '', setHeaders: vi.fn(), setHeader: vi.fn(), end: vi.fn() }
       const handler = nodeHttpErrorHandlerResolver(mockBlueprint)
-      expect(handler.render(new NodeHttpAdapterError('simple error', { metadata: { rawResponse, rawEvent: {} } }))).toBe(500)
+      expect(handler.render(new NodeHttpAdapterError('simple error', { metadata: { rawResponse, rawEvent: {} } }))).toBe(rawResponse)
       expect(rawResponse.statusCode).toBe(500)
       expect(rawResponse.statusMessage).toBe('Internal Server Error')
       expect(rawResponse.setHeader).toHaveBeenCalledWith('Content-Type', 'text/plain')

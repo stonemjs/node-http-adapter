@@ -47,7 +47,7 @@ export type NodeHttpServer =
  */
 export interface NodeHttpAdapterContext extends AdapterContext<
 IncomingMessage,
-number,
+ServerResponse,
 NodeHttpServer,
 IncomingHttpEvent,
 IncomingHttpEventOptions,

@@ -28,7 +28,7 @@ Create a BodyEventMiddleware.
 
 Options for creating the BodyEventMiddleware.
 
-###### options.blueprint
+###### blueprint
 
 `IBlueprint`
 
@@ -38,7 +38,7 @@ Options for creating the BodyEventMiddleware.
 
 #### Defined in
 
-[src/middleware/BodyEventMiddleware.ts:40](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/middleware/BodyEventMiddleware.ts#L40)
+[src/middleware/BodyEventMiddleware.ts:40](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/BodyEventMiddleware.ts#L40)
 
 ## Methods
 
@@ -74,4 +74,4 @@ If required components such as the rawEvent or IncomingEventBuilder are not prov
 
 #### Defined in
 
-[src/middleware/BodyEventMiddleware.ts:53](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/middleware/BodyEventMiddleware.ts#L53)
+[src/middleware/BodyEventMiddleware.ts:53](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/BodyEventMiddleware.ts#L53)

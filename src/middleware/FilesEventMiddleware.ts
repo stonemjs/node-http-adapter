@@ -32,7 +32,7 @@ export class FilesEventMiddleware {
    * @param next - The next middleware to be invoked in the pipeline.
    * @returns A promise that resolves to the destination type after processing.
    *
-   * @throws {IntegrationError} If required components such as the rawEvent or IncomingEventBuilder are not provided.
+   * @throws {NodeHttpAdapterError} If required components such as the rawEvent or IncomingEventBuilder are not provided.
    */
   async handle (context: NodeHttpAdapterContext, next: NextPipe<NodeHttpAdapterContext, ServerResponseWrapper>): Promise<ServerResponseWrapper> {
     if (context.rawEvent === undefined || context.incomingEventBuilder?.add === undefined) {

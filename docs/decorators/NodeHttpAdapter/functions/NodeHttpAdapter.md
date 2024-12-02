@@ -53,7 +53,10 @@ A class decorator function.
 ```typescript
 import { NodeHttpAdapter } from '@stone-js/node-http';
 
-@NodeHttpAdapter({ url: 'http://localhost:3000' })
+@NodeHttpAdapter({
+  url: 'http://localhost:3000',
+  default: true,
+})
 class MyHttpService {
   // Service implementation
 }
@@ -61,4 +64,4 @@ class MyHttpService {
 
 ## Defined in
 
-[src/decorators/NodeHttpAdapter.ts:35](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/decorators/NodeHttpAdapter.ts#L35)
+[src/decorators/NodeHttpAdapter.ts:38](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/decorators/NodeHttpAdapter.ts#L38)

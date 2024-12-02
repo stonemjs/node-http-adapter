@@ -33,7 +33,7 @@ describe('ServerResponseWrapper', () => {
 
     const exitStatus = await wrapper.respond()
 
-    expect(exitStatus).toBe(404)
+    expect(exitStatus).toBe(mockResponse)
     expect(mockResponse.statusCode).toBe(404)
     expect(mockResponse.statusMessage).toBe('Not Found')
   })

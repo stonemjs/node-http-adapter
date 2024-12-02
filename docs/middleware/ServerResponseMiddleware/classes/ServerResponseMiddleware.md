@@ -25,7 +25,7 @@ Create a ServerResponseMiddleware.
 
 Options for creating the ServerResponseMiddleware.
 
-###### options.blueprint
+###### blueprint
 
 `IBlueprint`
 
@@ -35,7 +35,7 @@ Options for creating the ServerResponseMiddleware.
 
 #### Defined in
 
-[src/middleware/ServerResponseMiddleware.ts:26](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/middleware/ServerResponseMiddleware.ts#L26)
+[src/middleware/ServerResponseMiddleware.ts:26](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/ServerResponseMiddleware.ts#L26)
 
 ## Methods
 
@@ -71,4 +71,4 @@ If required components are missing in the context.
 
 #### Defined in
 
-[src/middleware/ServerResponseMiddleware.ts:38](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/middleware/ServerResponseMiddleware.ts#L38)
+[src/middleware/ServerResponseMiddleware.ts:38](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/ServerResponseMiddleware.ts#L38)

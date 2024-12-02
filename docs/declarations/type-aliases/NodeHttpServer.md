@@ -14,4 +14,4 @@ Combines both HTTP and HTTPS server types to allow flexibility in choosing the s
 
 ## Defined in
 
-[src/declarations.ts:38](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/declarations.ts#L38)
+[src/declarations.ts:38](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L38)

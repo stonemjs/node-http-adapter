@@ -1,7 +1,7 @@
+import { Mock } from 'vitest'
 import { addBlueprint } from '@stone-js/core'
 import { nodeHttpAdapterBlueprint } from '../../src/options/NodeHttpAdapterBlueprint'
 import { NodeHttpAdapter, NodeHttpAdapterOptions } from '../../src/decorators/NodeHttpAdapter'
-import { Mock } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 

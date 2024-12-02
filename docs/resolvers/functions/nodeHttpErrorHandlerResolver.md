@@ -6,7 +6,7 @@
 
 # Function: nodeHttpErrorHandlerResolver()
 
-> **nodeHttpErrorHandlerResolver**(`blueprint`): `IErrorHandler`\<`number`\>
+> **nodeHttpErrorHandlerResolver**(`blueprint`): `IErrorHandler`\<`ServerResponse`\<`IncomingMessage`\>\>
 
 Resolver function for the HTTP adapter error handler.
 
@@ -22,10 +22,10 @@ The application blueprint for dependency resolution.
 
 ## Returns
 
-`IErrorHandler`\<`number`\>
+`IErrorHandler`\<`ServerResponse`\<`IncomingMessage`\>\>
 
 An `ErrorHandler` instance for handling HTTP errors.
 
 ## Defined in
 
-[src/resolvers.ts:85](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/resolvers.ts#L85)
+[src/resolvers.ts:87](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/resolvers.ts#L87)

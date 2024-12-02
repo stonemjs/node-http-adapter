@@ -28,4 +28,4 @@ A `Kernel` instance for managing the HTTP lifecycle.
 
 ## Defined in
 
-[src/resolvers.ts:103](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/resolvers.ts#L103)
+[src/resolvers.ts:105](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/resolvers.ts#L105)

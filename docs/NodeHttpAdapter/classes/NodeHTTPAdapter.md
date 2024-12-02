@@ -21,7 +21,7 @@ The raw HTTP event type (e.g., `IncomingMessage`).
 
 ## Template
 
-The destination type (e.g., number for status codes).
+The raw HTTP response type (e.g., `ServerResponse`).
 
 ## Template
 
@@ -45,7 +45,7 @@ The adapter context type (e.g., `NodeHttpAdapterContext`).
 
 ## Extends
 
-- `Adapter`\<`IncomingMessage`, `number`, [`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md), `IncomingHttpEvent`, `IncomingHttpEventOptions`, `OutgoingHttpResponse`, [`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)\>
+- `Adapter`\<`IncomingMessage`, `ServerResponse`, [`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md), `IncomingHttpEvent`, `IncomingHttpEventOptions`, `OutgoingHttpResponse`, [`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)\>
 
 ## Constructors
 
@@ -61,7 +61,7 @@ This constructor is protected and is intended to be used via the static `create`
 
 ##### options
 
-`AdapterOptions`\<`number`, `IncomingHttpEvent`, `OutgoingHttpResponse`\>
+`AdapterOptions`\<`ServerResponse`\<`IncomingMessage`\>, `IncomingHttpEvent`, `OutgoingHttpResponse`\>
 
 Configuration options for the adapter.
 
@@ -73,7 +73,7 @@ Configuration options for the adapter.
 
 `Adapter<
 IncomingMessage,
-number,
+ServerResponse,
 NodeHttpServer,
 IncomingHttpEvent,
 IncomingHttpEventOptions,
@@ -83,7 +83,7 @@ NodeHttpAdapterContext
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:96](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L96)
+[src/NodeHttpAdapter.ts:96](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L96)
 
 ## Properties
 
@@ -95,7 +95,7 @@ The HTTP/HTTPS server instance created by the adapter.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:62](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L62)
+[src/NodeHttpAdapter.ts:62](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L62)
 
 ***
 
@@ -107,7 +107,7 @@ The base URL for the server, derived from the Stone.js blueprint configuration.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:57](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L57)
+[src/NodeHttpAdapter.ts:57](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L57)
 
 ## Methods
 
@@ -125,7 +125,7 @@ Logs errors and ensures the server shuts down gracefully in case of critical err
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:225](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L225)
+[src/NodeHttpAdapter.ts:225](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L225)
 
 ***
 
@@ -143,13 +143,13 @@ A `NodeHttpServer` instance.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:177](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L177)
+[src/NodeHttpAdapter.ts:177](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L177)
 
 ***
 
 ### eventListener()
 
-> `protected` **eventListener**(`rawEvent`, `rawResponse`): `Promise`\<`number`\>
+> `protected` **eventListener**(`rawEvent`, `rawResponse`): `Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
 
 Handles incoming HTTP requests and sends them through the adapter's event pipeline.
 
@@ -169,13 +169,13 @@ The raw HTTP response object.
 
 #### Returns
 
-`Promise`\<`number`\>
+`Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
 
-A promise resolving to a number (e.g., HTTP status code).
+A promise resolving to a ServerResponse (e.g., `ServerResponse`).
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:200](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L200)
+[src/NodeHttpAdapter.ts:200](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L200)
 
 ***
 
@@ -202,7 +202,7 @@ If the adapter is used outside a Node.js context.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:139](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L139)
+[src/NodeHttpAdapter.ts:139](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L139)
 
 ***
 
@@ -239,21 +239,25 @@ The context for the lifecycle event.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:160](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L160)
+[src/NodeHttpAdapter.ts:160](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L160)
 
 ***
 
 ### run()
 
-> **run**(): `Promise`\<`number`\>
+> **run**\<`ExecutionResultType`\>(): `Promise`\<`ExecutionResultType`\>
 
 Starts the HTTP/HTTPS server and listens for incoming requests.
 
+#### Type Parameters
+
+• **ExecutionResultType** = [`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md)
+
 #### Returns
 
-`Promise`\<`number`\>
+`Promise`\<`ExecutionResultType`\>
 
-A promise that resolves to a number (usually 0) when the server starts successfully.
+A promise that resolves to an ExecutionResultType (usually `NodeHttpServer`) when the server starts successfully.
 
 #### Throws
 
@@ -273,7 +277,7 @@ console.log('Server is running');
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:121](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L121)
+[src/NodeHttpAdapter.ts:121](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L121)
 
 ***
 
@@ -287,7 +291,7 @@ Creates a new `NodeHTTPAdapter` instance.
 
 ##### options
 
-`AdapterOptions`\<`number`, `IncomingHttpEvent`, `OutgoingHttpResponse`\>
+`AdapterOptions`\<`ServerResponse`\<`IncomingMessage`\>, `IncomingHttpEvent`, `OutgoingHttpResponse`\>
 
 Configuration options for the adapter, including lifecycle event handlers,
                  logger, and dependency injection via the blueprint.
@@ -312,4 +316,4 @@ await adapter.run();
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:82](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/NodeHttpAdapter.ts#L82)
+[src/NodeHttpAdapter.ts:82](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/NodeHttpAdapter.ts#L82)

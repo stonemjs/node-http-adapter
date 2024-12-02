@@ -26,7 +26,10 @@ export interface NodeHttpAdapterOptions extends Partial<NodeHttpAdapterConfig> {
  * ```typescript
  * import { NodeHttpAdapter } from '@stone-js/node-http';
  *
- * @NodeHttpAdapter({ url: 'http://localhost:3000' })
+ * @NodeHttpAdapter({
+ *   url: 'http://localhost:3000',
+ *   default: true,
+ * })
  * class MyHttpService {
  *   // Service implementation
  * }
@@ -37,9 +40,11 @@ export const NodeHttpAdapter = <T extends ClassType = ClassType>(
 ): ((target: T, context: ClassDecoratorContext<T>) => void) => {
   return (target: T, context: ClassDecoratorContext<T>) => {
     // Merge the provided options with the default Node.js HTTP adapter blueprint
-    nodeHttpAdapterBlueprint.stone.adapters[0] = {
-      ...nodeHttpAdapterBlueprint.stone.adapters[0],
-      ...options
+    if (nodeHttpAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
+      nodeHttpAdapterBlueprint.stone.adapters[0] = {
+        ...nodeHttpAdapterBlueprint.stone.adapters[0],
+        ...options
+      }
     }
 
     // Register the updated blueprint with the target class

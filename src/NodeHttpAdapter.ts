@@ -5,7 +5,7 @@ import { NodeHttpAdapterError } from './errors/NodeHttpAdapterError'
 import { createServer, IncomingMessage, ServerResponse } from 'node:http'
 import {
   Adapter,
-  AdapterBuilder,
+  AdapterEventBuilder,
   AdapterOptions,
   LifecycleEventHandler
 } from '@stone-js/core'
@@ -33,7 +33,7 @@ import {
  * ensuring seamless integration with Stone.js.
  *
  * @template RawEvent - The raw HTTP event type (e.g., `IncomingMessage`).
- * @template Destination - The destination type (e.g., number for status codes).
+ * @template RawResponse - The raw HTTP response type (e.g., `ServerResponse`).
  * @template Server - The server instance type (e.g., `NodeHttpServer`).
  * @template IncomingEvent - The Stone.js incoming event type (e.g., `IncomingHttpEvent`).
  * @template IncomingEventOptions - Options for creating an incoming event.
@@ -44,7 +44,7 @@ import {
  */
 export class NodeHTTPAdapter extends Adapter<
 IncomingMessage,
-number,
+ServerResponse,
 NodeHttpServer,
 IncomingHttpEvent,
 IncomingHttpEventOptions,
@@ -80,7 +80,7 @@ NodeHttpAdapterContext
    * ```
    */
   static create (
-    options: AdapterOptions<number, IncomingHttpEvent, OutgoingHttpResponse>
+    options: AdapterOptions<ServerResponse, IncomingHttpEvent, OutgoingHttpResponse>
   ): NodeHTTPAdapter {
     return new this(options)
   }
@@ -94,7 +94,7 @@ NodeHttpAdapterContext
    * @protected
    */
   protected constructor (
-    options: AdapterOptions<number, IncomingHttpEvent, OutgoingHttpResponse>
+    options: AdapterOptions<ServerResponse, IncomingHttpEvent, OutgoingHttpResponse>
   ) {
     super(options)
     this.server = this.createServer()
@@ -107,7 +107,7 @@ NodeHttpAdapterContext
   /**
    * Starts the HTTP/HTTPS server and listens for incoming requests.
    *
-   * @returns A promise that resolves to a number (usually 0) when the server starts successfully.
+   * @returns A promise that resolves to an ExecutionResultType (usually `NodeHttpServer`) when the server starts successfully.
    *
    * @throws {NodeHttpAdapterError} If the server encounters an error during initialization.
    *
@@ -118,13 +118,13 @@ NodeHttpAdapterContext
    * console.log('Server is running');
    * ```
    */
-  public async run (): Promise<number> {
+  public async run<ExecutionResultType = NodeHttpServer>(): Promise<ExecutionResultType> {
     await this.onInit()
 
     return await new Promise((resolve, reject) => {
       this.server
         .once('error', (error) => reject(error))
-        .listen(Number(this.url.port), this.url.hostname, () => resolve(0))
+        .listen(Number(this.url.port), this.url.hostname, () => resolve(this.server as ExecutionResultType))
     })
   }
 
@@ -193,16 +193,16 @@ NodeHttpAdapterContext
    *
    * @param rawEvent - The raw HTTP request object.
    * @param rawResponse - The raw HTTP response object.
-   * @returns A promise resolving to a number (e.g., HTTP status code).
+   * @returns A promise resolving to a ServerResponse (e.g., `ServerResponse`).
    *
    * @protected
    */
-  protected async eventListener (rawEvent: IncomingMessage, rawResponse: ServerResponse): Promise<number> {
-    const incomingEventBuilder = AdapterBuilder.create<IncomingHttpEventOptions, IncomingHttpEvent>({
+  protected async eventListener (rawEvent: IncomingMessage, rawResponse: ServerResponse): Promise<ServerResponse> {
+    const incomingEventBuilder = AdapterEventBuilder.create<IncomingHttpEventOptions, IncomingHttpEvent>({
       resolver: (options) => IncomingHttpEvent.create(options)
     })
 
-    const rawResponseBuilder = AdapterBuilder.create<RawHttpResponseOptions, ServerResponseWrapper>({
+    const rawResponseBuilder = AdapterEventBuilder.create<RawHttpResponseOptions, ServerResponseWrapper>({
       resolver: (options) => ServerResponseWrapper.create(rawResponse, options)
     })
 

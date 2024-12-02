@@ -25,7 +25,7 @@ Create an IncomingEventMiddleware instance.
 
 Options containing the blueprint for resolving configuration and dependencies.
 
-###### options.blueprint
+###### blueprint
 
 `IBlueprint`
 
@@ -35,7 +35,7 @@ Options containing the blueprint for resolving configuration and dependencies.
 
 #### Defined in
 
-[src/middleware/IncomingEventMiddleware.ts:53](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/middleware/IncomingEventMiddleware.ts#L53)
+[src/middleware/IncomingEventMiddleware.ts:56](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/IncomingEventMiddleware.ts#L56)
 
 ## Methods
 
@@ -71,4 +71,4 @@ If required components are missing in the context.
 
 #### Defined in
 
-[src/middleware/IncomingEventMiddleware.ts:65](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/middleware/IncomingEventMiddleware.ts#L65)
+[src/middleware/IncomingEventMiddleware.ts:68](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/IncomingEventMiddleware.ts#L68)

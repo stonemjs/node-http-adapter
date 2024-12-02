@@ -15,4 +15,4 @@ Extends the `ServerOptions` type from Node.js to support strongly typed
 
 ## Defined in
 
-[src/declarations.ts:17](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/declarations.ts#L17)
+[src/declarations.ts:17](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L17)

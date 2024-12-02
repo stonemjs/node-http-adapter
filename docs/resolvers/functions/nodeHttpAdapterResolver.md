@@ -6,7 +6,7 @@
 
 # Function: nodeHttpAdapterResolver()
 
-> **nodeHttpAdapterResolver**(`blueprint`): `IAdapter`\<`number`\>
+> **nodeHttpAdapterResolver**(`blueprint`): `IAdapter`
 
 Resolver function for the HTTP adapter.
 
@@ -22,10 +22,10 @@ The application blueprint for dependency resolution.
 
 ## Returns
 
-`IAdapter`\<`number`\>
+`IAdapter`
 
 An `AdapterResolver` instance for managing HTTP interactions.
 
 ## Defined in
 
-[src/resolvers.ts:122](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/resolvers.ts#L122)
+[src/resolvers.ts:124](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/resolvers.ts#L124)

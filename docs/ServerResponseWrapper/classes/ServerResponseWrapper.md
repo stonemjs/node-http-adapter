@@ -13,7 +13,7 @@ flexible manner. It supports setting status codes, headers, streaming files, or 
 
 ## Implements
 
-- `IRawResponseWrapper`\<`number`\>
+- `IRawResponseWrapper`\<`ServerResponse`\>
 
 ## Properties
 
@@ -23,13 +23,9 @@ flexible manner. It supports setting status codes, headers, streaming files, or 
 
 Partial configuration for customizing the response.
 
-#### Implementation of
-
-`IRawResponseWrapper.options`
-
 #### Defined in
 
-[src/ServerResponseWrapper.ts:33](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/ServerResponseWrapper.ts#L33)
+[src/ServerResponseWrapper.ts:33](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/ServerResponseWrapper.ts#L33)
 
 ***
 
@@ -41,13 +37,13 @@ The Node.js `ServerResponse` object to be wrapped.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:32](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/ServerResponseWrapper.ts#L32)
+[src/ServerResponseWrapper.ts:32](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/ServerResponseWrapper.ts#L32)
 
 ## Methods
 
 ### respond()
 
-> **respond**(): `Promise`\<`number`\>
+> **respond**(): `Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
 
 Sends the HTTP response based on the configured options.
 
@@ -59,7 +55,7 @@ This method:
 
 #### Returns
 
-`Promise`\<`number`\>
+`Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
 
 A promise that resolves to the HTTP status code of the response.
 
@@ -73,7 +69,7 @@ An error if the response cannot be sent due to an issue in `streamFile`.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:49](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/ServerResponseWrapper.ts#L49)
+[src/ServerResponseWrapper.ts:49](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/ServerResponseWrapper.ts#L49)
 
 ***
 
@@ -105,4 +101,4 @@ A new instance of `ServerResponseWrapper`.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:19](https://github.com/stonemjs/node-adapter/blob/ddd3db262e296a3076ca003f1374ffc8cbccff6b/src/ServerResponseWrapper.ts#L19)
+[src/ServerResponseWrapper.ts:19](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/ServerResponseWrapper.ts#L19)

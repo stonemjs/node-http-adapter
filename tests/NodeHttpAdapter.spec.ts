@@ -1,17 +1,17 @@
-import { createServer } from 'node:http'
+import onFinished from 'on-finished'
+import { createServer, ServerResponse } from 'node:http'
 import { NodeHTTPAdapter } from '../src/NodeHttpAdapter'
 import { createServer as createHttpsServer } from 'node:https'
 import { ServerResponseWrapper } from '../src/ServerResponseWrapper'
 import { NodeHttpAdapterError } from '../src/errors/NodeHttpAdapterError'
 import {
-  AdapterBuilder,
+  AdapterEventBuilder,
   AdapterOptions
 } from '@stone-js/core'
 import {
   IncomingHttpEvent,
   OutgoingHttpResponse
 } from '@stone-js/http-core'
-import onFinished from 'on-finished'
 
 vi.mock('node:http')
 vi.mock('node:https')
@@ -30,7 +30,7 @@ vi.mock('../src/ServerResponseWrapper', () => ({
 
 describe('NodeHTTPAdapter', () => {
   let mockServer: any
-  let adapterOptions: AdapterOptions<number, IncomingHttpEvent, OutgoingHttpResponse>
+  let adapterOptions: AdapterOptions<ServerResponse, IncomingHttpEvent, OutgoingHttpResponse>
 
   beforeEach(() => {
     adapterOptions = {
@@ -89,7 +89,7 @@ describe('NodeHTTPAdapter', () => {
   it('should start the server and listen on the correct port', async () => {
     const adapter = NodeHTTPAdapter.create(adapterOptions)
 
-    await expect(adapter.run()).resolves.toBe(0)
+    await expect(adapter.run()).resolves.toBe(mockServer)
 
     expect(mockServer.listen).toHaveBeenCalledWith(
       8080,
@@ -105,14 +105,14 @@ describe('NodeHTTPAdapter', () => {
 
     IncomingHttpEvent.create = vi.fn()
     ServerResponseWrapper.create = vi.fn()
-    AdapterBuilder.create = vi.fn((options) => options.resolver(mockResponse, {}))
+    AdapterEventBuilder.create = vi.fn((options) => options.resolver(mockResponse, {}))
     // @ts-expect-error
     adapter.sendEventThroughDestination = vi.fn()
 
     // @ts-expect-error
     await adapter.eventListener(mockEvent, mockResponse)
 
-    expect(AdapterBuilder.create).toHaveBeenCalled()
+    expect(AdapterEventBuilder.create).toHaveBeenCalled()
     // @ts-expect-error
     expect(adapter.sendEventThroughDestination).toHaveBeenCalled()
     expect(ServerResponseWrapper.create).toHaveBeenCalledWith(
@@ -129,7 +129,7 @@ describe('NodeHTTPAdapter', () => {
     // @ts-expect-error
     await adapter.onTerminate(eventHandler, context)
 
-    expect(AdapterBuilder.create).toHaveBeenCalled()
+    expect(AdapterEventBuilder.create).toHaveBeenCalled()
     expect(onFinished).toHaveBeenCalledWith({}, expect.any(Function))
   })
 

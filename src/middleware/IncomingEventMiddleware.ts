@@ -43,6 +43,9 @@ interface HttpCommonCookieOptions {
  * headers, cookies, and more, and forwards them to the next middleware in the pipeline.
  */
 export class IncomingEventMiddleware {
+  /**
+   * The blueprint for resolving configuration and dependencies.
+   */
   private readonly blueprint: IBlueprint
 
   /**

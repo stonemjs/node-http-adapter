@@ -8,7 +8,7 @@ import { RawHttpResponseOptions } from './declarations'
  * This class provides methods for configuring and sending HTTP responses in a consistent and
  * flexible manner. It supports setting status codes, headers, streaming files, or sending raw body content.
  */
-export class ServerResponseWrapper implements IRawResponseWrapper<number> {
+export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse> {
   /**
    * Creates a new `ServerResponseWrapper` instance.
    *
@@ -46,7 +46,7 @@ export class ServerResponseWrapper implements IRawResponseWrapper<number> {
    *
    * @throws An error if the response cannot be sent due to an issue in `streamFile`.
    */
-  async respond (): Promise<number> {
+  async respond (): Promise<ServerResponse> {
     this
       .setStatus()
       .setHeaders()
@@ -57,7 +57,7 @@ export class ServerResponseWrapper implements IRawResponseWrapper<number> {
       this.sendBody()
     }
 
-    return this.response.statusCode
+    return this.response
   }
 
   /**

@@ -1,5 +1,6 @@
 import mime from 'mime/lite'
 import accepts from 'accepts'
+import { ServerResponse } from 'node:http'
 import { NodeHTTPAdapter } from './NodeHttpAdapter'
 import { Container } from '@stone-js/service-container'
 import { NodeHttpAdapterError } from './errors/NodeHttpAdapterError'
@@ -25,14 +26,15 @@ import {
  * If no specific error information is provided, it defaults to a 500 Internal Server Error response.
  *
  * @param error - The `NodeHttpAdapterError` object containing error metadata and context.
- * @returns The HTTP status code used in the response.
+ * @returns The Node Raw HTTP Response.
+ * @throws `NodeHttpAdapterError` when the error context is invalid.
  */
-const nodeHttpErrorHandlerRenderResponseResolver = (error: NodeHttpAdapterError): number => {
+const nodeHttpErrorHandlerRenderResponseResolver = (error: NodeHttpAdapterError): ServerResponse => {
   const context = error.metadata as NodeHttpAdapterContext
   const rawResponse = context?.rawResponse
 
   if (context?.rawEvent === undefined || rawResponse === undefined) {
-    return HTTP_INTERNAL_SERVER_ERROR
+    throw new NodeHttpAdapterError('Invalid error context provided for rendering response.')
   }
 
   const httpError = error.cause as RawHttpResponseOptions | undefined
@@ -59,7 +61,7 @@ const nodeHttpErrorHandlerRenderResponseResolver = (error: NodeHttpAdapterError)
     rawResponse.end()
   }
 
-  return rawResponse.statusCode
+  return rawResponse
 }
 
 /**
@@ -82,10 +84,10 @@ const loggerResolver = (blueprint: IBlueprint): LoggerResolver => {
  * @param blueprint - The application blueprint for dependency resolution.
  * @returns An `ErrorHandler` instance for handling HTTP errors.
  */
-export const nodeHttpErrorHandlerResolver: ErrorHandlerResolver<number> = (
+export const nodeHttpErrorHandlerResolver: ErrorHandlerResolver<ServerResponse> = (
   blueprint: IBlueprint
-): ErrorHandler<number> => {
-  return ErrorHandler.create<number>({
+): ErrorHandler<ServerResponse> => {
+  return ErrorHandler.create<ServerResponse>({
     blueprint,
     logger: loggerResolver(blueprint)(blueprint),
     renderResponseResolver: nodeHttpErrorHandlerRenderResponseResolver
@@ -105,9 +107,9 @@ export const nodeHttpKernelResolver: KernelResolver<IncomingHttpEvent, OutgoingH
 ): Kernel<IncomingHttpEvent, OutgoingHttpResponse> => {
   return Kernel.create({
     blueprint,
-    logger: loggerResolver(blueprint)(blueprint),
     container: Container.create(),
-    eventEmitter: new EventEmitter()
+    eventEmitter: new EventEmitter(),
+    logger: loggerResolver(blueprint)(blueprint)
   })
 }
 
@@ -119,14 +121,16 @@ export const nodeHttpKernelResolver: KernelResolver<IncomingHttpEvent, OutgoingH
  * @param blueprint - The application blueprint for dependency resolution.
  * @returns An `AdapterResolver` instance for managing HTTP interactions.
  */
-export const nodeHttpAdapterResolver: AdapterResolver<number> = (blueprint: IBlueprint) => {
+export const nodeHttpAdapterResolver: AdapterResolver = (blueprint: IBlueprint) => {
   const hooks = blueprint.get<AdapterHooks>('stone.adapter.hooks', {})
+  const handlerResolver = blueprint.get('stone.kernel.resolver', nodeHttpKernelResolver)
+  const errorHandlerResolver = blueprint.get('stone.errorHandler.resolver', nodeHttpErrorHandlerResolver)
 
   return NodeHTTPAdapter.create({
     hooks,
     blueprint,
-    handlerResolver: nodeHttpKernelResolver,
+    handlerResolver,
     logger: loggerResolver(blueprint)(blueprint),
-    errorHandler: nodeHttpErrorHandlerResolver(blueprint)
+    errorHandler: errorHandlerResolver(blueprint)
   })
 }

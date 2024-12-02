@@ -48,7 +48,7 @@ export class BodyEventMiddleware {
    * @param next - The next middleware to be invoked in the pipeline.
    * @returns A promise that resolves to the destination type after processing.
    *
-   * @throws {IntegrationError} If required components such as the rawEvent or IncomingEventBuilder are not provided.
+   * @throws {NodeHttpAdapterError} If required components such as the rawEvent or IncomingEventBuilder are not provided.
    */
   async handle (context: NodeHttpAdapterContext, next: NextPipe<NodeHttpAdapterContext, ServerResponseWrapper>): Promise<ServerResponseWrapper> {
     if (context.rawEvent === undefined || context.incomingEventBuilder?.add === undefined) {
@@ -67,7 +67,7 @@ export class BodyEventMiddleware {
    *
    * @param message - The incoming HTTP message.
    * @returns A Promise resolving to the parsed body.
-   * @throws {HttpError} If the body parsing fails or is invalid.
+   * @throws {NodeHttpAdapterError} If the body parsing fails or is invalid.
    */
   private async getBody (message: IncomingMessage): Promise<unknown> {
     if (!typeIs.hasBody(message)) {
