@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
@@ -64,4 +64,4 @@ class MyHttpService {
 
 ## Defined in
 
-[src/decorators/NodeHttpAdapter.ts:38](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/decorators/NodeHttpAdapter.ts#L38)
+[src/decorators/NodeHttpAdapter.ts:38](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/decorators/NodeHttpAdapter.ts#L38)

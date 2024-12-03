@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
@@ -36,7 +36,7 @@ Options for creating the FilesEventMiddleware.
 
 #### Defined in
 
-[src/middleware/FilesEventMiddleware.ts:24](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/FilesEventMiddleware.ts#L24)
+[src/middleware/FilesEventMiddleware.ts:24](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/FilesEventMiddleware.ts#L24)
 
 ## Methods
 
@@ -72,4 +72,4 @@ If required components such as the rawEvent or IncomingEventBuilder are not prov
 
 #### Defined in
 
-[src/middleware/FilesEventMiddleware.ts:37](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/FilesEventMiddleware.ts#L37)
+[src/middleware/FilesEventMiddleware.ts:37](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/FilesEventMiddleware.ts#L37)

@@ -1,4 +1,4 @@
-**Node Adapter Documentation v0.0.0**
+**Node Adapter Documentation v0.0.2**
 
 ***
 

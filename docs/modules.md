@@ -1,8 +1,8 @@
-[**Node Adapter Documentation v0.0.0**](README.md)
+[**Node Adapter Documentation v0.0.2**](README.md)
 
 ***
 
-# Node Adapter Documentation v0.0.0
+# Node Adapter Documentation v0.0.2
 
 ## Modules
 
@@ -11,6 +11,7 @@
 - [decorators/NodeHttpAdapter](decorators/NodeHttpAdapter/README.md)
 - [errors/NodeHttpAdapterError](errors/NodeHttpAdapterError/README.md)
 - [middleware/BodyEventMiddleware](middleware/BodyEventMiddleware/README.md)
+- [middleware/configurationMiddleware](middleware/configurationMiddleware/README.md)
 - [middleware/FilesEventMiddleware](middleware/FilesEventMiddleware/README.md)
 - [middleware/IncomingEventMiddleware](middleware/IncomingEventMiddleware/README.md)
 - [middleware/ServerResponseMiddleware](middleware/ServerResponseMiddleware/README.md)

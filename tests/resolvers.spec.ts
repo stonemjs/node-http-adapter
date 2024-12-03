@@ -2,10 +2,10 @@ import accepts from 'accepts'
 import mime from 'mime/lite'
 import { Mock } from 'vitest'
 import { Config } from '@stone-js/config'
-import { ErrorHandler, Kernel } from '@stone-js/core'
+import { ErrorHandler } from '@stone-js/core'
 import { NodeHTTPAdapter } from '../src/NodeHttpAdapter'
 import { NodeHttpAdapterError } from '../src/errors/NodeHttpAdapterError'
-import { nodeHttpErrorHandlerResolver, nodeHttpKernelResolver, nodeHttpAdapterResolver } from '../src/resolvers'
+import { nodeHttpErrorHandlerResolver, nodeHttpAdapterResolver } from '../src/resolvers'
 
 const mockBlueprint = Config.create()
 
@@ -83,13 +83,6 @@ describe('NodeHttpAdapter Resolvers', () => {
       expect(rawResponse.statusMessage).toBe('Internal Server Error')
       expect(rawResponse.setHeader).toHaveBeenCalledWith('Content-Type', 'text/plain')
       expect(rawResponse.end).toHaveBeenCalledWith()
-    })
-  })
-
-  describe('nodeHttpKernelResolver', () => {
-    it('should create a Kernel instance with the correct configuration', () => {
-      const kernel = nodeHttpKernelResolver(mockBlueprint)
-      expect(kernel).toBeInstanceOf(Kernel)
     })
   })
 

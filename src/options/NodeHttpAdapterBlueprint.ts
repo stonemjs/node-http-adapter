@@ -1,10 +1,11 @@
 import { NODE_HTTP_PLATFORM } from '../constants'
 import { NodeServerOptions } from '../declarations'
+import { nodeHttpAdapterResolver } from '../resolvers'
 import { IncomingHttpEvent, OutgoingHttpResponse } from '@stone-js/http-core'
 import { IncomingEventMiddleware } from '../middleware/IncomingEventMiddleware'
 import { ServerResponseMiddleware } from '../middleware/ServerResponseMiddleware'
-import { nodeHttpAdapterResolver, nodeHttpErrorHandlerResolver, nodeHttpKernelResolver } from '../resolvers'
-import { AdapterConfig, AdapterHandlerMiddleware, ErrorHandlerConfig, KernelConfig, KernelHandlerMiddleware, StoneBlueprint } from '@stone-js/core'
+import { SetNodeHttpAdapterConfigMiddleware } from '../middleware/configurationMiddleware'
+import { AdapterConfig, AdapterHandlerMiddleware, BuilderConfig, StoneBlueprint } from '@stone-js/core'
 
 /**
  * NodeHttpAdapterConfig Interface.
@@ -37,9 +38,8 @@ export interface NodeHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEve
    * Application-level settings, including environment, middleware, logging, and service registration.
    */
   stone: {
-    errorHandler: ErrorHandlerConfig
+    builder: BuilderConfig
     adapters: NodeHttpAdapterConfig[]
-    kernel: KernelConfig<IncomingHttpEvent, OutgoingHttpResponse>
   }
 }
 
@@ -50,9 +50,14 @@ export interface NodeHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEve
  */
 export const nodeHttpAdapterBlueprint: NodeHttpAdapterBlueprint = {
   stone: {
+    builder: {
+      middleware: [
+        { priority: 10, pipe: SetNodeHttpAdapterConfigMiddleware }
+      ]
+    },
     adapters: [
       {
-        alias: NODE_HTTP_PLATFORM,
+        platform: NODE_HTTP_PLATFORM,
         resolver: nodeHttpAdapterResolver,
         middleware: [
           { priority: 0, pipe: IncomingEventMiddleware },
@@ -66,18 +71,6 @@ export const nodeHttpAdapterBlueprint: NodeHttpAdapterBlueprint = {
         url: 'http://localhost:8080',
         server: {}
       }
-    ],
-    kernel: {
-      resolver: nodeHttpKernelResolver,
-      middleware: [
-        { priority: 100, pipe: KernelHandlerMiddleware }
-      ]
-    },
-    errorHandler: {
-      levels: {} as any,
-      dontReport: new Set([]),
-      withoutDuplicates: true,
-      resolver: nodeHttpErrorHandlerResolver
-    }
+    ]
   }
 }

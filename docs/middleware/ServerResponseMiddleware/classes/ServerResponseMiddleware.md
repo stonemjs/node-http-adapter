@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
@@ -35,7 +35,7 @@ Options for creating the ServerResponseMiddleware.
 
 #### Defined in
 
-[src/middleware/ServerResponseMiddleware.ts:26](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/ServerResponseMiddleware.ts#L26)
+[src/middleware/ServerResponseMiddleware.ts:26](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/ServerResponseMiddleware.ts#L26)
 
 ## Methods
 
@@ -71,4 +71,4 @@ If required components are missing in the context.
 
 #### Defined in
 
-[src/middleware/ServerResponseMiddleware.ts:38](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/middleware/ServerResponseMiddleware.ts#L38)
+[src/middleware/ServerResponseMiddleware.ts:38](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/ServerResponseMiddleware.ts#L38)

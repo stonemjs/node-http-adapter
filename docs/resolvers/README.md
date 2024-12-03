@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../README.md)
+[**Node Adapter Documentation v0.0.2**](../README.md)
 
 ***
 
@@ -12,4 +12,3 @@
 
 - [nodeHttpAdapterResolver](functions/nodeHttpAdapterResolver.md)
 - [nodeHttpErrorHandlerResolver](functions/nodeHttpErrorHandlerResolver.md)
-- [nodeHttpKernelResolver](functions/nodeHttpKernelResolver.md)

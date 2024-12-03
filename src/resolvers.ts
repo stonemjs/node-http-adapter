@@ -2,20 +2,17 @@ import mime from 'mime/lite'
 import accepts from 'accepts'
 import { ServerResponse } from 'node:http'
 import { NodeHTTPAdapter } from './NodeHttpAdapter'
-import { Container } from '@stone-js/service-container'
+import { HTTP_INTERNAL_SERVER_ERROR } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from './errors/NodeHttpAdapterError'
 import { RawHttpResponseOptions, NodeHttpAdapterContext } from './declarations'
-import { HTTP_INTERNAL_SERVER_ERROR, IncomingHttpEvent, OutgoingHttpResponse } from '@stone-js/http-core'
 import {
   AdapterHooks,
   AdapterResolver,
+  defaultKernelResolver,
   defaultLoggerResolver,
   ErrorHandler,
   ErrorHandlerResolver,
-  EventEmitter,
   IBlueprint,
-  Kernel,
-  KernelResolver,
   LoggerResolver
 } from '@stone-js/core'
 
@@ -95,25 +92,6 @@ export const nodeHttpErrorHandlerResolver: ErrorHandlerResolver<ServerResponse> 
 }
 
 /**
- * Resolver function for the HTTP kernel.
- *
- * This function creates an HTTP kernel, which orchestrates the handling of incoming events and outgoing responses.
- *
- * @param blueprint - The application blueprint for dependency resolution.
- * @returns A `Kernel` instance for managing the HTTP lifecycle.
- */
-export const nodeHttpKernelResolver: KernelResolver<IncomingHttpEvent, OutgoingHttpResponse> = (
-  blueprint: IBlueprint
-): Kernel<IncomingHttpEvent, OutgoingHttpResponse> => {
-  return Kernel.create({
-    blueprint,
-    container: Container.create(),
-    eventEmitter: new EventEmitter(),
-    logger: loggerResolver(blueprint)(blueprint)
-  })
-}
-
-/**
  * Resolver function for the HTTP adapter.
  *
  * This function creates a `NodeHTTPAdapter` instance, which acts as the bridge between the HTTP server and the Stone.js framework.
@@ -123,7 +101,7 @@ export const nodeHttpKernelResolver: KernelResolver<IncomingHttpEvent, OutgoingH
  */
 export const nodeHttpAdapterResolver: AdapterResolver = (blueprint: IBlueprint) => {
   const hooks = blueprint.get<AdapterHooks>('stone.adapter.hooks', {})
-  const handlerResolver = blueprint.get('stone.kernel.resolver', nodeHttpKernelResolver)
+  const handlerResolver = blueprint.get('stone.kernel.resolver', defaultKernelResolver)
   const errorHandlerResolver = blueprint.get('stone.errorHandler.resolver', nodeHttpErrorHandlerResolver)
 
   return NodeHTTPAdapter.create({

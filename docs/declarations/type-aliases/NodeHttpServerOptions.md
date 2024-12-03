@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
@@ -15,4 +15,4 @@ Extends the `ServerOptions` type from Node.js to support strongly typed
 
 ## Defined in
 
-[src/declarations.ts:17](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L17)
+[src/declarations.ts:17](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L17)

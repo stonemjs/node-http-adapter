@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
@@ -32,13 +32,9 @@ Application-level settings, including environment, middleware, logging, and serv
 
 > **adapters**: [`NodeHttpAdapterConfig`](NodeHttpAdapterConfig.md)[]
 
-#### errorHandler
+#### builder
 
-> **errorHandler**: `ErrorHandlerConfig`
-
-#### kernel
-
-> **kernel**: `KernelConfig`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+> **builder**: `BuilderConfig`
 
 #### Overrides
 
@@ -46,4 +42,4 @@ Application-level settings, including environment, middleware, logging, and serv
 
 #### Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:39](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/options/NodeHttpAdapterBlueprint.ts#L39)
+[src/options/NodeHttpAdapterBlueprint.ts:40](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L40)

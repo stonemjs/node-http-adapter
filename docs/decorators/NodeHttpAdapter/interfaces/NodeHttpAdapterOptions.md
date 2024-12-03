@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
@@ -29,7 +29,7 @@ Additional server configurations for the Node HTTP server.
 
 #### Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:25](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/options/NodeHttpAdapterBlueprint.ts#L25)
+[src/options/NodeHttpAdapterBlueprint.ts:26](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L26)
 
 ***
 
@@ -45,4 +45,4 @@ The base URL used by the node http to run the application.
 
 #### Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:20](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/options/NodeHttpAdapterBlueprint.ts#L20)
+[src/options/NodeHttpAdapterBlueprint.ts:21](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L21)

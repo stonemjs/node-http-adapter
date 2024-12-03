@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.0**](../../README.md)
+[**Node Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
@@ -29,7 +29,7 @@ The body of the HTTP response. Can be of any type, including strings, objects, o
 
 #### Defined in
 
-[src/declarations.ts:72](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L72)
+[src/declarations.ts:72](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L72)
 
 ***
 
@@ -41,7 +41,7 @@ The character set used for encoding the response body. Defaults to `utf-8` if no
 
 #### Defined in
 
-[src/declarations.ts:77](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L77)
+[src/declarations.ts:77](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L77)
 
 ***
 
@@ -54,7 +54,7 @@ Can be provided as a `Map<string, string>` or `Headers` object.
 
 #### Defined in
 
-[src/declarations.ts:93](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L93)
+[src/declarations.ts:93](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L93)
 
 ***
 
@@ -66,7 +66,7 @@ The HTTP status code of the response (e.g., `200`, `404`).
 
 #### Defined in
 
-[src/declarations.ts:82](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L82)
+[src/declarations.ts:82](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L82)
 
 ***
 
@@ -78,7 +78,7 @@ The status message accompanying the HTTP status code (e.g., `OK`, `Not Found`).
 
 #### Defined in
 
-[src/declarations.ts:87](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L87)
+[src/declarations.ts:87](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L87)
 
 ***
 
@@ -95,4 +95,4 @@ Can be synchronous or asynchronous.
 
 #### Defined in
 
-[src/declarations.ts:99](https://github.com/stonemjs/node-adapter/blob/9929d494d97af9b76f0eedfbba8a3119e7dc4922/src/declarations.ts#L99)
+[src/declarations.ts:99](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L99)
