@@ -18,6 +18,22 @@ resolver, middleware, hooks, and server configurations.
 
 ## Properties
 
+### errorHandler
+
+> **errorHandler**: `ErrorHandlerConfig`\<`ServerResponse`\<`IncomingMessage`\>\>
+
+Logging settings, including the logger instance and error reporting configurations.
+
+#### Overrides
+
+`AdapterConfig.errorHandler`
+
+#### Defined in
+
+[src/options/NodeHttpAdapterBlueprint.ts:21](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L21)
+
+***
+
 ### server
 
 > **server**: [`NodeServerOptions`](../../../declarations/type-aliases/NodeServerOptions.md)
@@ -26,7 +42,7 @@ Additional server configurations for the Node HTTP server.
 
 #### Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:26](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L26)
+[src/options/NodeHttpAdapterBlueprint.ts:31](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L31)
 
 ***
 
@@ -38,4 +54,4 @@ The base URL used by the node http to run the application.
 
 #### Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:21](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L21)
+[src/options/NodeHttpAdapterBlueprint.ts:26](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L26)

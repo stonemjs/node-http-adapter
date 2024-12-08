@@ -1,11 +1,11 @@
+import { ServerResponse } from 'node:http'
 import { NODE_HTTP_PLATFORM } from '../constants'
 import { NodeServerOptions } from '../declarations'
-import { nodeHttpAdapterResolver } from '../resolvers'
 import { IncomingHttpEvent, OutgoingHttpResponse } from '@stone-js/http-core'
 import { IncomingEventMiddleware } from '../middleware/IncomingEventMiddleware'
 import { ServerResponseMiddleware } from '../middleware/ServerResponseMiddleware'
-import { SetNodeHttpAdapterConfigMiddleware } from '../middleware/configurationMiddleware'
-import { AdapterConfig, AdapterHandlerMiddleware, BuilderConfig, StoneBlueprint } from '@stone-js/core'
+import { nodeHttpAdapterResolver, nodeHttpErrorHandlerResolver } from '../resolvers'
+import { AdapterConfig, AdapterHandlerMiddleware, ErrorHandlerConfig, StoneBlueprint } from '@stone-js/core'
 
 /**
  * NodeHttpAdapterConfig Interface.
@@ -15,6 +15,11 @@ import { AdapterConfig, AdapterHandlerMiddleware, BuilderConfig, StoneBlueprint 
  * resolver, middleware, hooks, and server configurations.
  */
 export interface NodeHttpAdapterConfig extends AdapterConfig {
+  /**
+   * Logging settings, including the logger instance and error reporting configurations.
+   */
+  errorHandler: ErrorHandlerConfig<ServerResponse>
+
   /**
    * The base URL used by the node http to run the application.
    */
@@ -38,7 +43,6 @@ export interface NodeHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEve
    * Application-level settings, including environment, middleware, logging, and service registration.
    */
   stone: {
-    builder: BuilderConfig
     adapters: NodeHttpAdapterConfig[]
   }
 }
@@ -50,11 +54,6 @@ export interface NodeHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEve
  */
 export const nodeHttpAdapterBlueprint: NodeHttpAdapterBlueprint = {
   stone: {
-    builder: {
-      middleware: [
-        { priority: 10, pipe: SetNodeHttpAdapterConfigMiddleware }
-      ]
-    },
     adapters: [
       {
         platform: NODE_HTTP_PLATFORM,
@@ -65,6 +64,9 @@ export const nodeHttpAdapterBlueprint: NodeHttpAdapterBlueprint = {
           { priority: 200, pipe: ServerResponseMiddleware }
         ],
         hooks: {},
+        errorHandler: {
+          resolver: nodeHttpErrorHandlerResolver
+        },
         current: false,
         default: false,
         preferred: false,

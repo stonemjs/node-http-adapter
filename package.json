@@ -1,16 +1,16 @@
 {
-  "name": "@stone-js/node-adapter",
+  "name": "@stone-js/node-http-adapter",
   "version": "0.0.2",
-  "description": "Stone.js Node adapter",
+  "description": "Stone.js Node HTTP adapter",
   "author": "Mr. Stone <evensstone@gmail.com>",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/stonemjs/node-adapter.git"
+    "url": "git+ssh://git@github.com/stonemjs/node-http-adapter.git"
   },
-  "homepage": "https://github.com/stonemjs/node-adapter#readme",
+  "homepage": "https://github.com/stonemjs/node-http-adapter#readme",
   "bugs": {
-    "url": "https://github.com/stonemjs/node-adapter/issues"
+    "url": "https://github.com/stonemjs/node-http-adapter/issues"
   },
   "keywords": [
     "node",
@@ -52,8 +52,8 @@
     "prepare": "husky"
   },
   "peerDependencies": {
-    "@stone-js/core": "^0.0.33",
-    "@stone-js/http-core": "^0.0.32",
+    "@stone-js/core": "^0.0.35",
+    "@stone-js/http-core": "^0.0.33",
     "@stone-js/pipeline": "^0.0.46",
     "@stone-js/service-container": "^0.0.43"
   },

@@ -25,7 +25,7 @@ Partial configuration for customizing the response.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:33](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/ServerResponseWrapper.ts#L33)
+[src/ServerResponseWrapper.ts:33](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L33)
 
 ***
 
@@ -37,7 +37,7 @@ The Node.js `ServerResponse` object to be wrapped.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:32](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/ServerResponseWrapper.ts#L32)
+[src/ServerResponseWrapper.ts:32](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L32)
 
 ## Methods
 
@@ -69,7 +69,7 @@ An error if the response cannot be sent due to an issue in `streamFile`.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:49](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/ServerResponseWrapper.ts#L49)
+[src/ServerResponseWrapper.ts:49](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L49)
 
 ***
 
@@ -101,4 +101,4 @@ A new instance of `ServerResponseWrapper`.
 
 #### Defined in
 
-[src/ServerResponseWrapper.ts:19](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/ServerResponseWrapper.ts#L19)
+[src/ServerResponseWrapper.ts:19](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L19)

@@ -1,3 +1,4 @@
+import bytes from 'bytes'
 import typeIs from 'type-is'
 import { Mock } from 'vitest'
 import rawBody from 'raw-body'
@@ -7,9 +8,10 @@ import { isMultipart, getCharset, getHttpError } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../../src/errors/NodeHttpAdapterError'
 import { BodyEventMiddleware } from '../../src/middleware/BodyEventMiddleware'
 
+vi.mock('bytes')
 vi.mock('type-is')
-vi.mock('raw-body')
 vi.mock('co-body')
+vi.mock('raw-body')
 
 vi.mock('@stone-js/http-core', () => ({
   isMultipart: vi.fn(),
@@ -94,6 +96,7 @@ describe('BodyEventMiddleware', () => {
   it('should parse and add JSON body to the event builder', async () => {
     vi.mocked(isMultipart).mockReturnValue(false)
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue(null)
     vi.mocked(bodyParser.json).mockResolvedValue({ key: 'value' })
@@ -109,6 +112,7 @@ describe('BodyEventMiddleware', () => {
   it('should parse and add text body to the event builder', async () => {
     vi.mocked(isMultipart).mockReturnValue(false)
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('text')
     vi.mocked(bodyParser.text).mockResolvedValue('Hello, world!')
@@ -123,6 +127,7 @@ describe('BodyEventMiddleware', () => {
   it('should parse and add URL-encoded form body to the event builder', async () => {
     vi.mocked(isMultipart).mockReturnValue(false)
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('urlencoded')
     vi.mocked(bodyParser.form).mockResolvedValue({ name: 'test' })
@@ -137,6 +142,7 @@ describe('BodyEventMiddleware', () => {
   it('should parse binary body', async () => {
     vi.mocked(isMultipart).mockReturnValue(false)
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('bin')
     vi.mocked(rawBody).mockResolvedValue(Buffer.from('binary data'))
@@ -152,6 +158,7 @@ describe('BodyEventMiddleware', () => {
     const mockError = new Error('Invalid JSON')
     vi.mocked(isMultipart).mockReturnValue(false)
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('json')
     vi.mocked(bodyParser.json).mockRejectedValue(mockError)

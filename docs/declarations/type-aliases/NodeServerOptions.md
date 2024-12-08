@@ -12,4 +12,4 @@ Represents options for configuring a Node.js HTTP or HTTPS server.
 
 ## Defined in
 
-[src/declarations.ts:9](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/declarations.ts#L9)
+[src/declarations.ts:9](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/declarations.ts#L9)

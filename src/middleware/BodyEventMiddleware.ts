@@ -76,7 +76,7 @@ export class BodyEventMiddleware {
 
     const defaultOptions = { limit: '100kb', defaultType: 'text/plain', defaultCharset: 'utf-8' }
     const { defaultType, defaultCharset, limit: rawLimit } = this.blueprint.get<HttpBodyOptions>('stone.http.body', defaultOptions)
-    const limit = bytes.parse(rawLimit)
+    const limit = bytes.parse(rawLimit) ?? 100000
     const length = message.headers['content-length']
     const encoding = getCharset(message, defaultCharset)
 

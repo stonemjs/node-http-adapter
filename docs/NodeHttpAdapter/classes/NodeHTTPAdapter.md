@@ -83,7 +83,7 @@ NodeHttpAdapterContext
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:96](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L96)
+[src/NodeHttpAdapter.ts:96](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L96)
 
 ## Properties
 
@@ -95,7 +95,7 @@ The HTTP/HTTPS server instance created by the adapter.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:62](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L62)
+[src/NodeHttpAdapter.ts:62](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L62)
 
 ***
 
@@ -107,7 +107,7 @@ The base URL for the server, derived from the Stone.js blueprint configuration.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:57](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L57)
+[src/NodeHttpAdapter.ts:57](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L57)
 
 ## Methods
 
@@ -125,7 +125,7 @@ Logs errors and ensures the server shuts down gracefully in case of critical err
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:225](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L225)
+[src/NodeHttpAdapter.ts:225](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L225)
 
 ***
 
@@ -143,7 +143,7 @@ A `NodeHttpServer` instance.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:177](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L177)
+[src/NodeHttpAdapter.ts:177](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L177)
 
 ***
 
@@ -175,7 +175,7 @@ A promise resolving to a ServerResponse (e.g., `ServerResponse`).
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:200](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L200)
+[src/NodeHttpAdapter.ts:200](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L200)
 
 ***
 
@@ -202,7 +202,7 @@ If the adapter is used outside a Node.js context.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:139](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L139)
+[src/NodeHttpAdapter.ts:139](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L139)
 
 ***
 
@@ -239,7 +239,7 @@ The context for the lifecycle event.
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:160](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L160)
+[src/NodeHttpAdapter.ts:160](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L160)
 
 ***
 
@@ -277,7 +277,7 @@ console.log('Server is running');
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:121](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L121)
+[src/NodeHttpAdapter.ts:121](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L121)
 
 ***
 
@@ -316,4 +316,4 @@ await adapter.run();
 
 #### Defined in
 
-[src/NodeHttpAdapter.ts:82](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/NodeHttpAdapter.ts#L82)
+[src/NodeHttpAdapter.ts:82](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/NodeHttpAdapter.ts#L82)

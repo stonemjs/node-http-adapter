@@ -14,4 +14,4 @@ This object defines the configuration for the Node HTTP adapter.
 
 ## Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:51](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L51)
+[src/options/NodeHttpAdapterBlueprint.ts:55](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L55)

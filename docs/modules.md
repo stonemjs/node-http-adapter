@@ -11,7 +11,6 @@
 - [decorators/NodeHttpAdapter](decorators/NodeHttpAdapter/README.md)
 - [errors/NodeHttpAdapterError](errors/NodeHttpAdapterError/README.md)
 - [middleware/BodyEventMiddleware](middleware/BodyEventMiddleware/README.md)
-- [middleware/configurationMiddleware](middleware/configurationMiddleware/README.md)
 - [middleware/FilesEventMiddleware](middleware/FilesEventMiddleware/README.md)
 - [middleware/IncomingEventMiddleware](middleware/IncomingEventMiddleware/README.md)
 - [middleware/ServerResponseMiddleware](middleware/ServerResponseMiddleware/README.md)

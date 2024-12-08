@@ -81,6 +81,7 @@ export class IncomingEventMiddleware {
       .add('ips', ipAddresses)
       .add('queryString', url.search)
       .add('method', context.rawEvent.method)
+      .add('source', context.executionContext)
       .add('headers', context.rawEvent.headers)
       .add('protocol', this.getProtocol(context.rawEvent, proxyOptions))
       .add('metadata', { node: { message: context.rawEvent, response: context.rawResponse } })

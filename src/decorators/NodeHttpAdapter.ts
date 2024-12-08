@@ -39,8 +39,8 @@ export const NodeHttpAdapter = <T extends ClassType = ClassType>(
   options: NodeHttpAdapterOptions = {}
 ): ((target: T, context: ClassDecoratorContext<T>) => void) => {
   return (target: T, context: ClassDecoratorContext<T>) => {
-    // Merge the provided options with the default Node.js HTTP adapter blueprint
     if (nodeHttpAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
+      // Merge the provided options with the default Node.js HTTP adapter blueprint
       nodeHttpAdapterBlueprint.stone.adapters[0] = {
         ...nodeHttpAdapterBlueprint.stone.adapters[0],
         ...options

@@ -16,4 +16,4 @@ HTTP requests and responses.
 
 ## Defined in
 
-[src/constants.ts:8](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/constants.ts#L8)
+[src/constants.ts:8](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/constants.ts#L8)

@@ -35,7 +35,7 @@ Options containing the blueprint for resolving configuration and dependencies.
 
 #### Defined in
 
-[src/middleware/IncomingEventMiddleware.ts:56](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/IncomingEventMiddleware.ts#L56)
+[src/middleware/IncomingEventMiddleware.ts:56](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/IncomingEventMiddleware.ts#L56)
 
 ## Methods
 
@@ -71,4 +71,4 @@ If required components are missing in the context.
 
 #### Defined in
 
-[src/middleware/IncomingEventMiddleware.ts:68](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/IncomingEventMiddleware.ts#L68)
+[src/middleware/IncomingEventMiddleware.ts:68](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/IncomingEventMiddleware.ts#L68)

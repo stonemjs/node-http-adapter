@@ -32,14 +32,10 @@ Application-level settings, including environment, middleware, logging, and serv
 
 > **adapters**: [`NodeHttpAdapterConfig`](NodeHttpAdapterConfig.md)[]
 
-#### builder
-
-> **builder**: `BuilderConfig`
-
 #### Overrides
 
 `StoneBlueprint.stone`
 
 #### Defined in
 
-[src/options/NodeHttpAdapterBlueprint.ts:40](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/options/NodeHttpAdapterBlueprint.ts#L40)
+[src/options/NodeHttpAdapterBlueprint.ts:45](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L45)

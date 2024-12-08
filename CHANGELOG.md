@@ -5,7 +5,7 @@
 
 ### Miscellaneous Chores
 
-* implement node http adapter ([9929d49](https://github.com/stonemjs/node-adapter/commit/9929d494d97af9b76f0eedfbba8a3119e7dc4922))
+* implement node http adapter ([9929d49](https://github.com/stonemjs/node-http-adapter/commit/9929d494d97af9b76f0eedfbba8a3119e7dc4922))
 
 ## Changelog
 

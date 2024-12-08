@@ -102,7 +102,7 @@ export const nodeHttpErrorHandlerResolver: ErrorHandlerResolver<ServerResponse> 
 export const nodeHttpAdapterResolver: AdapterResolver = (blueprint: IBlueprint) => {
   const hooks = blueprint.get<AdapterHooks>('stone.adapter.hooks', {})
   const handlerResolver = blueprint.get('stone.kernel.resolver', defaultKernelResolver)
-  const errorHandlerResolver = blueprint.get('stone.errorHandler.resolver', nodeHttpErrorHandlerResolver)
+  const errorHandlerResolver = blueprint.get('stone.adapter.errorHandler.resolver', nodeHttpErrorHandlerResolver)
 
   return NodeHTTPAdapter.create({
     hooks,

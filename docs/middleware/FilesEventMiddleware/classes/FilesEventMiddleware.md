@@ -36,7 +36,7 @@ Options for creating the FilesEventMiddleware.
 
 #### Defined in
 
-[src/middleware/FilesEventMiddleware.ts:24](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/FilesEventMiddleware.ts#L24)
+[src/middleware/FilesEventMiddleware.ts:24](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/FilesEventMiddleware.ts#L24)
 
 ## Methods
 
@@ -72,4 +72,4 @@ If required components such as the rawEvent or IncomingEventBuilder are not prov
 
 #### Defined in
 
-[src/middleware/FilesEventMiddleware.ts:37](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/FilesEventMiddleware.ts#L37)
+[src/middleware/FilesEventMiddleware.ts:37](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/FilesEventMiddleware.ts#L37)

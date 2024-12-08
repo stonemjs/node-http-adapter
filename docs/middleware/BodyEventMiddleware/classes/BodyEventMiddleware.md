@@ -38,7 +38,7 @@ Options for creating the BodyEventMiddleware.
 
 #### Defined in
 
-[src/middleware/BodyEventMiddleware.ts:40](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/BodyEventMiddleware.ts#L40)
+[src/middleware/BodyEventMiddleware.ts:40](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/BodyEventMiddleware.ts#L40)
 
 ## Methods
 
@@ -74,4 +74,4 @@ If required components such as the rawEvent or IncomingEventBuilder are not prov
 
 #### Defined in
 
-[src/middleware/BodyEventMiddleware.ts:53](https://github.com/stonemjs/node-adapter/blob/3c6d11fbb2b43efd2628228369562f77db66c88f/src/middleware/BodyEventMiddleware.ts#L53)
+[src/middleware/BodyEventMiddleware.ts:53](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/BodyEventMiddleware.ts#L53)
