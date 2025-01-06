@@ -1,10 +1,9 @@
 import proxyAddr from 'proxy-addr'
 import { NextPipe } from '@stone-js/pipeline'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { NodeHttpAdapterContext } from '../../src/declarations'
-import { ServerResponseWrapper } from '../../src/ServerResponseWrapper'
 import { NodeHttpAdapterError } from '../../src/errors/NodeHttpAdapterError'
 import { IncomingEventMiddleware } from '../../src/middleware/IncomingEventMiddleware'
+import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../../src/declarations'
 import {
   getProtocol,
   CookieCollection,
@@ -27,7 +26,7 @@ describe('IncomingEventMiddleware', () => {
   let mockBlueprint: any
   let middleware: IncomingEventMiddleware
   let mockContext: NodeHttpAdapterContext
-  let next: NextPipe<NodeHttpAdapterContext, ServerResponseWrapper>
+  let next: NextPipe<NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder>
 
   beforeEach(() => {
     mockBlueprint = {
@@ -92,7 +91,6 @@ describe('IncomingEventMiddleware', () => {
   it('should extract URL correctly', () => {
     vi.mocked(getProtocol).mockImplementation((a, b, c, d) => 'http')
     vi.mocked(getHostname).mockImplementation((a, b, c) => 'localhost')
-    // @ts-expect-error
     mockContext.rawEvent.url = undefined
     // @ts-expect-error
     mockContext.rawEvent.socket.remoteAddress = undefined

@@ -50,12 +50,9 @@ export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse
     this
       .setStatus()
       .setHeaders()
+      .sendBody()
 
-    if (this.options.streamFile != null) {
-      await this.streamFile()
-    } else {
-      this.sendBody()
-    }
+    await this.streamFile()
 
     return this.response
   }
@@ -79,7 +76,7 @@ export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse
    * If `headers` are not provided, this method does nothing.
    */
   private setHeaders (): this {
-    if (this.options.headers != null) {
+    if (this.options.headers !== undefined) {
       this.response.setHeaders(this.options.headers)
     }
     return this
@@ -91,7 +88,7 @@ export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse
    * @throws An error if the file streaming operation fails.
    */
   private async streamFile (): Promise<void> {
-    if (this.options.streamFile != null) {
+    if (this.options.streamFile !== undefined) {
       await this.options.streamFile()
     }
   }

@@ -1,13 +1,14 @@
+import deepmerge from 'deepmerge'
 import { addBlueprint, ClassType } from '@stone-js/core'
 import { nodeHttpAdapterBlueprint, NodeHttpAdapterConfig } from '../options/NodeHttpAdapterBlueprint'
 
 /**
- * Interface for configuring the `NodeHttpAdapter` decorator.
+ * Interface for configuring the `NodeHttp` decorator.
  *
  * This interface extends `NodeHttpAdapterConfig` and allows partial customization
  * of the Node.js HTTP adapter blueprint configuration.
  */
-export interface NodeHttpAdapterOptions extends Partial<NodeHttpAdapterConfig> {}
+export interface NodeHttpOptions extends Partial<NodeHttpAdapterConfig> {}
 
 /**
  * A class decorator for registering a Node.js HTTP adapter in the Stone.js framework.
@@ -24,9 +25,9 @@ export interface NodeHttpAdapterOptions extends Partial<NodeHttpAdapterConfig> {
  *
  * @example
  * ```typescript
- * import { NodeHttpAdapter } from '@stone-js/node-http';
+ * import { NodeHttp } from '@stone-js/node-http';
  *
- * @NodeHttpAdapter({
+ * @NodeHttp({
  *   url: 'http://localhost:3000',
  *   default: true,
  * })
@@ -35,16 +36,13 @@ export interface NodeHttpAdapterOptions extends Partial<NodeHttpAdapterConfig> {
  * }
  * ```
  */
-export const NodeHttpAdapter = <T extends ClassType = ClassType>(
-  options: NodeHttpAdapterOptions = {}
+export const NodeHttp = <T extends ClassType = ClassType>(
+  options: NodeHttpOptions = {}
 ): ((target: T, context: ClassDecoratorContext<T>) => void) => {
   return (target: T, context: ClassDecoratorContext<T>) => {
     if (nodeHttpAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
-      // Merge the provided options with the default Node.js HTTP adapter blueprint
-      nodeHttpAdapterBlueprint.stone.adapters[0] = {
-        ...nodeHttpAdapterBlueprint.stone.adapters[0],
-        ...options
-      }
+      // Deep Merge the provided options with the default Node.js HTTP adapter blueprint
+      nodeHttpAdapterBlueprint.stone.adapters[0] = deepmerge(nodeHttpAdapterBlueprint.stone.adapters[0], options)
     }
 
     // Register the updated blueprint with the target class

@@ -1,11 +1,11 @@
-import { ServerResponse } from 'node:http'
 import { NODE_HTTP_PLATFORM } from '../constants'
 import { NodeServerOptions } from '../declarations'
+import { nodeHttpAdapterResolver } from '../resolvers'
+import { AdapterConfig, StoneBlueprint } from '@stone-js/core'
+import { NodeHttpErrorHandler } from '../NodeHttpErrorHandler'
 import { IncomingHttpEvent, OutgoingHttpResponse } from '@stone-js/http-core'
 import { IncomingEventMiddleware } from '../middleware/IncomingEventMiddleware'
 import { ServerResponseMiddleware } from '../middleware/ServerResponseMiddleware'
-import { nodeHttpAdapterResolver, nodeHttpErrorHandlerResolver } from '../resolvers'
-import { AdapterConfig, AdapterHandlerMiddleware, ErrorHandlerConfig, StoneBlueprint } from '@stone-js/core'
 
 /**
  * NodeHttpAdapterConfig Interface.
@@ -15,11 +15,6 @@ import { AdapterConfig, AdapterHandlerMiddleware, ErrorHandlerConfig, StoneBluep
  * resolver, middleware, hooks, and server configurations.
  */
 export interface NodeHttpAdapterConfig extends AdapterConfig {
-  /**
-   * Logging settings, including the logger instance and error reporting configurations.
-   */
-  errorHandler: ErrorHandlerConfig<ServerResponse>
-
   /**
    * The base URL used by the node http to run the application.
    */
@@ -60,16 +55,14 @@ export const nodeHttpAdapterBlueprint: NodeHttpAdapterBlueprint = {
         resolver: nodeHttpAdapterResolver,
         middleware: [
           { priority: 0, pipe: IncomingEventMiddleware },
-          { priority: 100, pipe: AdapterHandlerMiddleware },
-          { priority: 200, pipe: ServerResponseMiddleware }
+          { priority: 10, pipe: ServerResponseMiddleware }
         ],
         hooks: {},
-        errorHandler: {
-          resolver: nodeHttpErrorHandlerResolver
+        errorHandlers: {
+          default: NodeHttpErrorHandler
         },
         current: false,
         default: false,
-        preferred: false,
         url: 'http://localhost:8080',
         server: {}
       }

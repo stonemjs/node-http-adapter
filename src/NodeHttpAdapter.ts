@@ -5,20 +5,20 @@ import { NodeHttpAdapterError } from './errors/NodeHttpAdapterError'
 import { createServer, IncomingMessage, ServerResponse } from 'node:http'
 import {
   Adapter,
-  AdapterEventBuilder,
   AdapterOptions,
+  AdapterEventBuilder,
   LifecycleEventHandler
 } from '@stone-js/core'
 import {
   IncomingHttpEvent,
-  IncomingHttpEventOptions,
-  OutgoingHttpResponse
+  OutgoingHttpResponse,
+  IncomingHttpEventOptions
 } from '@stone-js/http-core'
 import {
-  NodeHttpAdapterContext,
-  NodeHttpServerOptions,
-  NodeHttpsServerOptions,
   NodeHttpServer,
+  NodeHttpServerOptions,
+  NodeHttpAdapterContext,
+  NodeHttpsServerOptions,
   RawHttpResponseOptions
 } from './declarations'
 
@@ -42,7 +42,7 @@ import {
  *
  * @extends Adapter
  */
-export class NodeHTTPAdapter extends Adapter<
+export class NodeHttpAdapter extends Adapter<
 IncomingMessage,
 ServerResponse,
 NodeHttpServer,
@@ -74,14 +74,11 @@ NodeHttpAdapterContext
    *   blueprint,
    *   handlerResolver,
    *   logger,
-   *   errorHandler,
    * });
    * await adapter.run();
    * ```
    */
-  static create (
-    options: AdapterOptions<ServerResponse, IncomingHttpEvent, OutgoingHttpResponse>
-  ): NodeHTTPAdapter {
+  static create (options: AdapterOptions<IncomingHttpEvent, OutgoingHttpResponse>): NodeHttpAdapter {
     return new this(options)
   }
 
@@ -93,15 +90,10 @@ NodeHttpAdapterContext
    * @param options - Configuration options for the adapter.
    * @protected
    */
-  protected constructor (
-    options: AdapterOptions<ServerResponse, IncomingHttpEvent, OutgoingHttpResponse>
-  ) {
+  protected constructor (options: AdapterOptions<IncomingHttpEvent, OutgoingHttpResponse>) {
     super(options)
+    this.url = new URL(this.blueprint.get<string>('stone.adapter.url', 'http://localhost:8080'))
     this.server = this.createServer()
-    this.url = new URL(
-      '',
-      this.blueprint.get<string>('stone.adapter.url', 'http://localhost:8080')
-    )
   }
 
   /**
@@ -168,27 +160,6 @@ NodeHttpAdapterContext
   }
 
   /**
-   * Creates the HTTP or HTTPS server based on the adapter's configuration.
-   *
-   * @returns A `NodeHttpServer` instance.
-   *
-   * @protected
-   */
-  protected createServer (): NodeHttpServer {
-    const url = this.blueprint.get<string>('stone.adapter.url', 'http://localhost:8080')
-
-    if (url.includes('https://')) {
-      const options = this.blueprint.get<NodeHttpsServerOptions>('stone.adapter.server', {})
-      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-      return createHttpsServer(options, async (message, response) => await this.eventListener(message, response))
-    } else {
-      const options = this.blueprint.get<NodeHttpServerOptions>('stone.adapter.server', {})
-      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-      return createServer(options, async (message, response) => await this.eventListener(message, response))
-    }
-  }
-
-  /**
    * Handles incoming HTTP requests and sends them through the adapter's event pipeline.
    *
    * @param rawEvent - The raw HTTP request object.
@@ -198,6 +169,10 @@ NodeHttpAdapterContext
    * @protected
    */
   protected async eventListener (rawEvent: IncomingMessage, rawResponse: ServerResponse): Promise<ServerResponse> {
+    const eventHandler = this.handlerResolver(this.blueprint) as LifecycleEventHandler<IncomingHttpEvent, OutgoingHttpResponse>
+
+    await this.onPrepare(eventHandler)
+
     const incomingEventBuilder = AdapterEventBuilder.create<IncomingHttpEventOptions, IncomingHttpEvent>({
       resolver: (options) => IncomingHttpEvent.create(options)
     })
@@ -206,13 +181,32 @@ NodeHttpAdapterContext
       resolver: (options) => ServerResponseWrapper.create(rawResponse, options)
     })
 
-    return await this.sendEventThroughDestination({
+    return await this.sendEventThroughDestination(eventHandler, {
       rawEvent,
       rawResponse,
       rawResponseBuilder,
       incomingEventBuilder,
       executionContext: this.server
     })
+  }
+
+  /**
+   * Creates the HTTP or HTTPS server based on the adapter's configuration.
+   *
+   * @returns A `NodeHttpServer` instance.
+   *
+   * @protected
+   */
+  protected createServer (): NodeHttpServer {
+    if (this.url.protocol.includes('https')) {
+      const options = this.blueprint.get<NodeHttpsServerOptions>('stone.adapter.server', {})
+      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+      return createHttpsServer(options, async (message, response) => await this.eventListener(message, response))
+    } else {
+      const options = this.blueprint.get<NodeHttpServerOptions>('stone.adapter.server', {})
+      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+      return createServer(options, async (message, response) => await this.eventListener(message, response))
+    }
   }
 
   /**
@@ -225,12 +219,12 @@ NodeHttpAdapterContext
   protected catchUncaughtExceptionListener (): void {
     process
       .on('uncaughtException', (error) => {
-        this.logger?.error('Uncaught exception detected.', { error })
+        this.logger.error('Uncaught exception detected.', { error })
         this.server.close(() => process.exit(1))
         setTimeout(() => process.abort(), 1000).unref()
       })
       .on('unhandledRejection', (reason, promise) => {
-        this.logger?.error(`Unhandled Rejection at: ${String(promise)}, reason: ${String(reason)}`)
+        this.logger.error(`Unhandled Rejection at: ${String(promise)}, reason: ${String(reason)}`)
       })
   }
 }

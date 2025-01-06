@@ -1,6 +1,6 @@
 import onFinished from 'on-finished'
-import { createServer, ServerResponse } from 'node:http'
-import { NodeHTTPAdapter } from '../src/NodeHttpAdapter'
+import { createServer } from 'node:http'
+import { NodeHttpAdapter } from '../src/NodeHttpAdapter'
 import { createServer as createHttpsServer } from 'node:https'
 import { ServerResponseWrapper } from '../src/ServerResponseWrapper'
 import { NodeHttpAdapterError } from '../src/errors/NodeHttpAdapterError'
@@ -30,7 +30,7 @@ vi.mock('../src/ServerResponseWrapper', () => ({
 
 describe('NodeHTTPAdapter', () => {
   let mockServer: any
-  let adapterOptions: AdapterOptions<ServerResponse, IncomingHttpEvent, OutgoingHttpResponse>
+  let adapterOptions: AdapterOptions<IncomingHttpEvent, OutgoingHttpResponse>
 
   beforeEach(() => {
     adapterOptions = {
@@ -62,18 +62,18 @@ describe('NodeHTTPAdapter', () => {
   })
 
   it('should create an instance with correct https configuration', () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
-    expect(adapter).toBeInstanceOf(NodeHTTPAdapter)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
+    expect(adapter).toBeInstanceOf(NodeHttpAdapter)
   })
 
   it('should use HTTPS server when URL contains https', () => {
     vi.mocked(adapterOptions.blueprint.get).mockReturnValue('https://localhost:8443')
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
-    expect(adapter).toBeInstanceOf(NodeHTTPAdapter)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
+    expect(adapter).toBeInstanceOf(NodeHttpAdapter)
   })
 
   it('should throw error when used outside Node.js context', async () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
 
     global.window = {} as any // Simulate browser context
 
@@ -87,7 +87,7 @@ describe('NodeHTTPAdapter', () => {
   })
 
   it('should start the server and listen on the correct port', async () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
 
     await expect(adapter.run()).resolves.toBe(mockServer)
 
@@ -99,7 +99,7 @@ describe('NodeHTTPAdapter', () => {
   })
 
   it('should call the appropriate event listener on request', async () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
     const mockEvent = {} as any
     const mockResponse = {} as any
 
@@ -122,7 +122,7 @@ describe('NodeHTTPAdapter', () => {
   })
 
   it('should call onTerminate on finished', async () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
     const context = { rawResponse: {} } as any
     const eventHandler = {} as unknown
 
@@ -134,7 +134,7 @@ describe('NodeHTTPAdapter', () => {
   })
 
   it('should handle uncaught exceptions gracefully', () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
 
     const mockError = new Error('Uncaught exception')
     const processExitSpy = vi.spyOn(process, 'exit').mockImplementation((() => {}) as any)
@@ -156,7 +156,7 @@ describe('NodeHTTPAdapter', () => {
   })
 
   it('should log unhandled promise rejections', () => {
-    const adapter = NodeHTTPAdapter.create(adapterOptions)
+    const adapter = NodeHttpAdapter.create(adapterOptions)
 
     // @ts-expect-error
     adapter.catchUncaughtExceptionListener()

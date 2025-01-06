@@ -45,7 +45,7 @@ describe('ServerResponseMiddleware', () => {
       }
     } as unknown as NodeHttpAdapterContext
 
-    next = vi.fn()
+    next = vi.fn(() => mockContext.rawResponseBuilder)
     vi.mocked(statuses).mockReturnValue({ message: { 500: 'Internal Server Error' } } as any)
   })
 

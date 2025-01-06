@@ -1,10 +1,12 @@
-[**Node Adapter Documentation v0.0.2**](../../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../../README.md)
 
 ***
 
 [Node Adapter Documentation](../../../modules.md) / [options/NodeHttpAdapterBlueprint](../README.md) / NodeHttpAdapterConfig
 
 # Interface: NodeHttpAdapterConfig
+
+Defined in: [src/options/NodeHttpAdapterBlueprint.ts:17](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/options/NodeHttpAdapterBlueprint.ts#L17)
 
 NodeHttpAdapterConfig Interface.
 
@@ -18,31 +20,13 @@ resolver, middleware, hooks, and server configurations.
 
 ## Properties
 
-### errorHandler
-
-> **errorHandler**: `ErrorHandlerConfig`\<`ServerResponse`\<`IncomingMessage`\>\>
-
-Logging settings, including the logger instance and error reporting configurations.
-
-#### Overrides
-
-`AdapterConfig.errorHandler`
-
-#### Defined in
-
-[src/options/NodeHttpAdapterBlueprint.ts:21](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L21)
-
-***
-
 ### server
 
 > **server**: [`NodeServerOptions`](../../../declarations/type-aliases/NodeServerOptions.md)
 
+Defined in: [src/options/NodeHttpAdapterBlueprint.ts:26](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/options/NodeHttpAdapterBlueprint.ts#L26)
+
 Additional server configurations for the Node HTTP server.
-
-#### Defined in
-
-[src/options/NodeHttpAdapterBlueprint.ts:31](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L31)
 
 ***
 
@@ -50,8 +34,6 @@ Additional server configurations for the Node HTTP server.
 
 > **url**: `string`
 
+Defined in: [src/options/NodeHttpAdapterBlueprint.ts:21](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/options/NodeHttpAdapterBlueprint.ts#L21)
+
 The base URL used by the node http to run the application.
-
-#### Defined in
-
-[src/options/NodeHttpAdapterBlueprint.ts:26](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L26)

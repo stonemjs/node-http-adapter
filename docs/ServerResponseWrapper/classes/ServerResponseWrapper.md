@@ -1,10 +1,12 @@
-[**Node Adapter Documentation v0.0.2**](../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../README.md)
 
 ***
 
 [Node Adapter Documentation](../../modules.md) / [ServerResponseWrapper](../README.md) / ServerResponseWrapper
 
 # Class: ServerResponseWrapper
+
+Defined in: [src/ServerResponseWrapper.ts:11](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/ServerResponseWrapper.ts#L11)
 
 A wrapper for the Node.js HTTP `ServerResponse` to implement the `IRawResponseWrapper` interface.
 
@@ -21,29 +23,27 @@ flexible manner. It supports setting status codes, headers, streaming files, or 
 
 > `readonly` **options**: `Partial`\<[`RawHttpResponseOptions`](../../declarations/interfaces/RawHttpResponseOptions.md)\> = `{}`
 
+Defined in: [src/ServerResponseWrapper.ts:33](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/ServerResponseWrapper.ts#L33)
+
 Partial configuration for customizing the response.
-
-#### Defined in
-
-[src/ServerResponseWrapper.ts:33](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L33)
 
 ***
 
 ### response
 
-> `readonly` **response**: `ServerResponse`\<`IncomingMessage`\>
+> `readonly` **response**: `ServerResponse`
+
+Defined in: [src/ServerResponseWrapper.ts:32](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/ServerResponseWrapper.ts#L32)
 
 The Node.js `ServerResponse` object to be wrapped.
-
-#### Defined in
-
-[src/ServerResponseWrapper.ts:32](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L32)
 
 ## Methods
 
 ### respond()
 
-> **respond**(): `Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
+> **respond**(): `Promise`\<`ServerResponse`\>
+
+Defined in: [src/ServerResponseWrapper.ts:49](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/ServerResponseWrapper.ts#L49)
 
 Sends the HTTP response based on the configured options.
 
@@ -55,7 +55,7 @@ This method:
 
 #### Returns
 
-`Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
+`Promise`\<`ServerResponse`\>
 
 A promise that resolves to the HTTP status code of the response.
 
@@ -67,15 +67,13 @@ An error if the response cannot be sent due to an issue in `streamFile`.
 
 `IRawResponseWrapper.respond`
 
-#### Defined in
-
-[src/ServerResponseWrapper.ts:49](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L49)
-
 ***
 
 ### create()
 
 > `static` **create**(`response`, `options`): [`ServerResponseWrapper`](ServerResponseWrapper.md)
+
+Defined in: [src/ServerResponseWrapper.ts:19](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/ServerResponseWrapper.ts#L19)
 
 Creates a new `ServerResponseWrapper` instance.
 
@@ -83,7 +81,7 @@ Creates a new `ServerResponseWrapper` instance.
 
 ##### response
 
-`ServerResponse`\<`IncomingMessage`\>
+`ServerResponse`
 
 The Node.js `ServerResponse` object to be wrapped.
 
@@ -98,7 +96,3 @@ Partial configuration for customizing the response.
 [`ServerResponseWrapper`](ServerResponseWrapper.md)
 
 A new instance of `ServerResponseWrapper`.
-
-#### Defined in
-
-[src/ServerResponseWrapper.ts:19](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/ServerResponseWrapper.ts#L19)

@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.2**](../README.md)
+[**Node Adapter Documentation v0.0.21**](../README.md)
 
 ***
 
@@ -6,15 +6,14 @@
 
 # declarations
 
-## Index
-
-### Interfaces
+## Interfaces
 
 - [NodeHttpAdapterContext](interfaces/NodeHttpAdapterContext.md)
 - [RawHttpResponseOptions](interfaces/RawHttpResponseOptions.md)
 
-### Type Aliases
+## Type Aliases
 
+- [NodeHttpAdapterResponseBuilder](type-aliases/NodeHttpAdapterResponseBuilder.md)
 - [NodeHttpServer](type-aliases/NodeHttpServer.md)
 - [NodeHttpServerOptions](type-aliases/NodeHttpServerOptions.md)
 - [NodeHttpsServerOptions](type-aliases/NodeHttpsServerOptions.md)

@@ -3,8 +3,8 @@ import typeIs from 'type-is'
 import { Mock } from 'vitest'
 import rawBody from 'raw-body'
 import bodyParser from 'co-body'
+import { isMultipart, getCharset } from '@stone-js/http-core'
 import { NodeHttpAdapterContext } from '../../src/declarations'
-import { isMultipart, getCharset, getHttpError } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../../src/errors/NodeHttpAdapterError'
 import { BodyEventMiddleware } from '../../src/middleware/BodyEventMiddleware'
 
@@ -14,9 +14,8 @@ vi.mock('co-body')
 vi.mock('raw-body')
 
 vi.mock('@stone-js/http-core', () => ({
-  isMultipart: vi.fn(),
   getCharset: vi.fn(),
-  getHttpError: vi.fn()
+  isMultipart: vi.fn()
 }))
 
 describe('BodyEventMiddleware', () => {
@@ -162,11 +161,7 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('json')
     vi.mocked(bodyParser.json).mockRejectedValue(mockError)
-    vi.mocked(getHttpError).mockReturnValue({ message: 'Invalid body', statusCode: 400 } as any)
 
     await expect(middleware.handle(mockContext, next)).rejects.toThrow(NodeHttpAdapterError)
-
-    // @ts-expect-error
-    expect(getHttpError).toHaveBeenCalledWith(400, 'Invalid body.', mockError.message, mockError.code, mockError)
   })
 })

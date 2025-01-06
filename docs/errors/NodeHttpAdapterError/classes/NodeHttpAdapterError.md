@@ -1,10 +1,12 @@
-[**Node Adapter Documentation v0.0.2**](../../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../../README.md)
 
 ***
 
 [Node Adapter Documentation](../../../modules.md) / [errors/NodeHttpAdapterError](../README.md) / NodeHttpAdapterError
 
 # Class: NodeHttpAdapterError
+
+Defined in: [src/errors/NodeHttpAdapterError.ts:6](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/errors/NodeHttpAdapterError.ts#L6)
 
 Custom error for node http adapter operations.
 
@@ -17,6 +19,8 @@ Custom error for node http adapter operations.
 ### new NodeHttpAdapterError()
 
 > **new NodeHttpAdapterError**(`message`, `options`?): [`NodeHttpAdapterError`](NodeHttpAdapterError.md)
+
+Defined in: [src/errors/NodeHttpAdapterError.ts:7](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/errors/NodeHttpAdapterError.ts#L7)
 
 #### Parameters
 
@@ -35,7 +39,3 @@ Custom error for node http adapter operations.
 #### Overrides
 
 `IntegrationError.constructor`
-
-#### Defined in
-
-[src/errors/NodeHttpAdapterError.ts:7](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/errors/NodeHttpAdapterError.ts#L7)

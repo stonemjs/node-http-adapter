@@ -1,12 +1,14 @@
-[**Node Adapter Documentation v0.0.2**](../../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../../README.md)
 
 ***
 
-[Node Adapter Documentation](../../../modules.md) / [decorators/NodeHttpAdapter](../README.md) / NodeHttpAdapter
+[Node Adapter Documentation](../../../modules.md) / [decorators/NodeHttp](../README.md) / NodeHttp
 
-# Function: NodeHttpAdapter()
+# Function: NodeHttp()
 
-> **NodeHttpAdapter**\<`T`\>(`options`): (`target`, `context`) => `void`
+> **NodeHttp**\<`T`\>(`options`): (`target`, `context`) => `void`
+
+Defined in: src/decorators/NodeHttp.ts:39
 
 A class decorator for registering a Node.js HTTP adapter in the Stone.js framework.
 
@@ -24,7 +26,7 @@ The type of the class being decorated, defaulting to `ClassType`.
 
 ### options
 
-[`NodeHttpAdapterOptions`](../interfaces/NodeHttpAdapterOptions.md) = `{}`
+[`NodeHttpOptions`](../interfaces/NodeHttpOptions.md) = `{}`
 
 An object containing configuration options for the Node.js HTTP adapter.
 
@@ -51,9 +53,9 @@ A class decorator function.
 ## Example
 
 ```typescript
-import { NodeHttpAdapter } from '@stone-js/node-http';
+import { NodeHttp } from '@stone-js/node-http';
 
-@NodeHttpAdapter({
+@NodeHttp({
   url: 'http://localhost:3000',
   default: true,
 })
@@ -61,7 +63,3 @@ class MyHttpService {
   // Service implementation
 }
 ```
-
-## Defined in
-
-[src/decorators/NodeHttpAdapter.ts:38](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/decorators/NodeHttpAdapter.ts#L38)

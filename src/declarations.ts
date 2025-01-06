@@ -1,6 +1,7 @@
-import { AdapterContext, RawResponseOptions } from '@stone-js/core'
+import { ServerResponseWrapper } from './ServerResponseWrapper'
 import { IncomingMessage, ServerResponse, ServerOptions, Server } from 'node:http'
 import { ServerOptions as HttpsServerOptions, Server as HttpsServer } from 'node:https'
+import { AdapterContext, IAdapterEventBuilder, RawResponseOptions } from '@stone-js/core'
 import { IncomingHttpEvent, IncomingHttpEventOptions, OutgoingHttpResponse } from '@stone-js/http-core'
 
 /**
@@ -58,6 +59,11 @@ OutgoingHttpResponse
    */
   rawResponse: ServerResponse
 }
+
+/**
+ * Represents the response builder for the Node http Adapter.
+ */
+export type NodeHttpAdapterResponseBuilder = IAdapterEventBuilder<RawHttpResponseOptions, ServerResponseWrapper>
 
 /**
  * Represents options for configuring a raw HTTP response.

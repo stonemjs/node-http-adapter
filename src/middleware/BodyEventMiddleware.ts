@@ -5,10 +5,9 @@ import bodyParser from 'co-body'
 import { IncomingMessage } from 'node:http'
 import { IBlueprint } from '@stone-js/core'
 import { NextPipe } from '@stone-js/pipeline'
-import { NodeHttpAdapterContext } from '../declarations'
-import { ServerResponseWrapper } from '../ServerResponseWrapper'
+import { isMultipart, getCharset } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
-import { getHttpError, isMultipart, getCharset } from '@stone-js/http-core'
+import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../declarations'
 
 /**
  * Represents the configuration options for parsing the request body.
@@ -50,7 +49,7 @@ export class BodyEventMiddleware {
    *
    * @throws {NodeHttpAdapterError} If required components such as the rawEvent or IncomingEventBuilder are not provided.
    */
-  async handle (context: NodeHttpAdapterContext, next: NextPipe<NodeHttpAdapterContext, ServerResponseWrapper>): Promise<ServerResponseWrapper> {
+  async handle (context: NodeHttpAdapterContext, next: NextPipe<NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder>): Promise<NodeHttpAdapterResponseBuilder> {
     if (context.rawEvent === undefined || context.incomingEventBuilder?.add === undefined) {
       throw new NodeHttpAdapterError('The context is missing required components.')
     }
@@ -94,8 +93,7 @@ export class BodyEventMiddleware {
           return {}
       }
     } catch (error: any) {
-      const cause = getHttpError(400, 'Invalid body.', error.message, error.code, error)
-      throw new NodeHttpAdapterError('The context is missing required components.', { cause })
+      throw new NodeHttpAdapterError('The context is missing required components.', { cause: error })
     }
   }
 }

@@ -1,10 +1,12 @@
-[**Node Adapter Documentation v0.0.2**](../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../README.md)
 
 ***
 
 [Node Adapter Documentation](../../modules.md) / [declarations](../README.md) / NodeHttpAdapterContext
 
 # Interface: NodeHttpAdapterContext
+
+Defined in: [src/declarations.ts:49](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/declarations.ts#L49)
 
 Extends the `AdapterContext` interface to provide additional properties for the Node.js HTTP adapter.
 
@@ -19,10 +21,12 @@ Stone.js adapter context properties.
 
 ### rawResponse
 
-> **rawResponse**: `ServerResponse`\<`IncomingMessage`\>
+> **rawResponse**: `ServerResponse`
+
+Defined in: [src/declarations.ts:60](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/declarations.ts#L60)
 
 The raw HTTP response object associated with the current request.
 
-#### Defined in
+#### Overrides
 
-[src/declarations.ts:59](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/declarations.ts#L59)
+`AdapterContext.rawResponse`

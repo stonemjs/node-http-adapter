@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.2**](../README.md)
+[**Node Adapter Documentation v0.0.21**](../README.md)
 
 ***
 
@@ -6,9 +6,6 @@
 
 # resolvers
 
-## Index
-
-### Functions
+## Functions
 
 - [nodeHttpAdapterResolver](functions/nodeHttpAdapterResolver.md)
-- [nodeHttpErrorHandlerResolver](functions/nodeHttpErrorHandlerResolver.md)

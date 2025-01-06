@@ -3,15 +3,14 @@ import { TLSSocket } from 'node:tls'
 import { IBlueprint } from '@stone-js/core'
 import { IncomingMessage } from 'node:http'
 import { NextPipe } from '@stone-js/pipeline'
-import { NodeHttpAdapterContext } from '../declarations'
-import { ServerResponseWrapper } from '../ServerResponseWrapper'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
+import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../declarations'
 import {
   getProtocol,
-  CookieCollection,
-  CookieSameSite,
+  isIpTrusted,
   getHostname,
-  isIpTrusted
+  CookieSameSite,
+  CookieCollection
 } from '@stone-js/http-core'
 
 /**
@@ -65,7 +64,7 @@ export class IncomingEventMiddleware {
    * @returns A promise that resolves to the processed context.
    * @throws {NodeHttpAdapterError} If required components are missing in the context.
    */
-  async handle (context: NodeHttpAdapterContext, next: NextPipe<NodeHttpAdapterContext, ServerResponseWrapper>): Promise<ServerResponseWrapper> {
+  async handle (context: NodeHttpAdapterContext, next: NextPipe<NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder>): Promise<NodeHttpAdapterResponseBuilder> {
     if ((context.rawEvent == null) || ((context.incomingEventBuilder?.add) == null)) {
       throw new NodeHttpAdapterError('The context is missing required components.')
     }

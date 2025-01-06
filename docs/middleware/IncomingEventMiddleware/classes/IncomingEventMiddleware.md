@@ -1,10 +1,12 @@
-[**Node Adapter Documentation v0.0.2**](../../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../../README.md)
 
 ***
 
 [Node Adapter Documentation](../../../modules.md) / [middleware/IncomingEventMiddleware](../README.md) / IncomingEventMiddleware
 
 # Class: IncomingEventMiddleware
+
+Defined in: [src/middleware/IncomingEventMiddleware.ts:44](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/IncomingEventMiddleware.ts#L44)
 
 Middleware for handling incoming events and transforming them into Stone.js events.
 
@@ -16,6 +18,8 @@ headers, cookies, and more, and forwards them to the next middleware in the pipe
 ### new IncomingEventMiddleware()
 
 > **new IncomingEventMiddleware**(`options`): [`IncomingEventMiddleware`](IncomingEventMiddleware.md)
+
+Defined in: [src/middleware/IncomingEventMiddleware.ts:55](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/IncomingEventMiddleware.ts#L55)
 
 Create an IncomingEventMiddleware instance.
 
@@ -33,15 +37,13 @@ Options containing the blueprint for resolving configuration and dependencies.
 
 [`IncomingEventMiddleware`](IncomingEventMiddleware.md)
 
-#### Defined in
-
-[src/middleware/IncomingEventMiddleware.ts:56](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/IncomingEventMiddleware.ts#L56)
-
 ## Methods
 
 ### handle()
 
-> **handle**(`context`, `next`): `Promise`\<[`ServerResponseWrapper`](../../../ServerResponseWrapper/classes/ServerResponseWrapper.md)\>
+> **handle**(`context`, `next`): `Promise`\<[`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
+
+Defined in: [src/middleware/IncomingEventMiddleware.ts:67](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/IncomingEventMiddleware.ts#L67)
 
 Handles the incoming event, processes it, and invokes the next middleware in the pipeline.
 
@@ -55,20 +57,16 @@ The adapter context containing the raw event, execution context, and other data.
 
 ##### next
 
-`NextPipe`\<[`NodeHttpAdapterContext`](../../../declarations/interfaces/NodeHttpAdapterContext.md), [`ServerResponseWrapper`](../../../ServerResponseWrapper/classes/ServerResponseWrapper.md)\>
+`NextPipe`\<[`NodeHttpAdapterContext`](../../../declarations/interfaces/NodeHttpAdapterContext.md), [`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
 
 The next middleware to be invoked in the pipeline.
 
 #### Returns
 
-`Promise`\<[`ServerResponseWrapper`](../../../ServerResponseWrapper/classes/ServerResponseWrapper.md)\>
+`Promise`\<[`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
 
 A promise that resolves to the processed context.
 
 #### Throws
 
 If required components are missing in the context.
-
-#### Defined in
-
-[src/middleware/IncomingEventMiddleware.ts:68](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/middleware/IncomingEventMiddleware.ts#L68)

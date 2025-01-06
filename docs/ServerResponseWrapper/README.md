@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.2**](../README.md)
+[**Node Adapter Documentation v0.0.21**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # ServerResponseWrapper
 
-## Index
-
-### Classes
+## Classes
 
 - [ServerResponseWrapper](classes/ServerResponseWrapper.md)

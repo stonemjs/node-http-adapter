@@ -1,4 +1,4 @@
-[**Node Adapter Documentation v0.0.2**](../../../README.md)
+[**Node Adapter Documentation v0.0.21**](../../../README.md)
 
 ***
 
@@ -8,10 +8,8 @@
 
 > `const` **nodeHttpAdapterBlueprint**: [`NodeHttpAdapterBlueprint`](../interfaces/NodeHttpAdapterBlueprint.md)
 
+Defined in: [src/options/NodeHttpAdapterBlueprint.ts:50](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/options/NodeHttpAdapterBlueprint.ts#L50)
+
 Node HTTP adapter options.
 
 This object defines the configuration for the Node HTTP adapter.
-
-## Defined in
-
-[src/options/NodeHttpAdapterBlueprint.ts:55](https://github.com/stonemjs/node-http-adapter/blob/c40d3860d098a79d7e93912b877b62d235dc0a99/src/options/NodeHttpAdapterBlueprint.ts#L55)
