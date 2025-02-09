@@ -6,7 +6,7 @@
 
 # Interface: NodeHttpAdapterContext
 
-Defined in: [src/declarations.ts:49](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/declarations.ts#L49)
+Defined in: [node-http-adapter/src/declarations.ts:49](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L49)
 
 Extends the `AdapterContext` interface to provide additional properties for the Node.js HTTP adapter.
 
@@ -19,14 +19,98 @@ Stone.js adapter context properties.
 
 ## Properties
 
+### executionContext
+
+> `readonly` **executionContext**: [`NodeHttpServer`](../type-aliases/NodeHttpServer.md)
+
+Defined in: core/dist/index.d.ts:1596
+
+The executionContext of type ExecutionContextType.
+
+#### Inherited from
+
+`AdapterContext.executionContext`
+
+***
+
+### incomingEvent?
+
+> `optional` **incomingEvent**: `IncomingHttpEvent`
+
+Defined in: core/dist/index.d.ts:1600
+
+The incomingEvent associated with the executionContext.
+
+#### Inherited from
+
+`AdapterContext.incomingEvent`
+
+***
+
+### incomingEventBuilder
+
+> `readonly` **incomingEventBuilder**: `IAdapterEventBuilder`\<`IncomingHttpEventOptions`, `IncomingHttpEvent`\>
+
+Defined in: core/dist/index.d.ts:1608
+
+The incomingEventBuilder.
+
+#### Inherited from
+
+`AdapterContext.incomingEventBuilder`
+
+***
+
+### outgoingResponse?
+
+> `optional` **outgoingResponse**: `OutgoingHttpResponse`
+
+Defined in: core/dist/index.d.ts:1604
+
+The outgoingResponse associated with the executionContext.
+
+#### Inherited from
+
+`AdapterContext.outgoingResponse`
+
+***
+
+### rawEvent
+
+> `readonly` **rawEvent**: `IncomingMessage`
+
+Defined in: core/dist/index.d.ts:1588
+
+The rawEvent of type RawEventType.
+
+#### Inherited from
+
+`AdapterContext.rawEvent`
+
+***
+
 ### rawResponse
 
 > **rawResponse**: `ServerResponse`
 
-Defined in: [src/declarations.ts:60](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/declarations.ts#L60)
+Defined in: [node-http-adapter/src/declarations.ts:60](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L60)
 
 The raw HTTP response object associated with the current request.
 
 #### Overrides
 
 `AdapterContext.rawResponse`
+
+***
+
+### rawResponseBuilder
+
+> `readonly` **rawResponseBuilder**: `IAdapterEventBuilder`\<`RawResponseOptions`, `IRawResponseWrapper`\<`ServerResponse`\>\>
+
+Defined in: core/dist/index.d.ts:1612
+
+The rawResponseBuilder.
+
+#### Inherited from
+
+`AdapterContext.rawResponseBuilder`

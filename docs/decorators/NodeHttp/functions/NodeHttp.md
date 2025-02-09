@@ -6,9 +6,9 @@
 
 # Function: NodeHttp()
 
-> **NodeHttp**\<`T`\>(`options`): (`target`, `context`) => `void`
+> **NodeHttp**\<`T`\>(`options`): `ClassDecorator`
 
-Defined in: src/decorators/NodeHttp.ts:39
+Defined in: [node-http-adapter/src/decorators/NodeHttp.ts:39](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/decorators/NodeHttp.ts#L39)
 
 A class decorator for registering a Node.js HTTP adapter in the Stone.js framework.
 
@@ -32,23 +32,9 @@ An object containing configuration options for the Node.js HTTP adapter.
 
 ## Returns
 
-`Function`
+`ClassDecorator`
 
 A class decorator function.
-
-### Parameters
-
-#### target
-
-`T`
-
-#### context
-
-`ClassDecoratorContext`\<`T`\>
-
-### Returns
-
-`void`
 
 ## Example
 

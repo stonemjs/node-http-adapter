@@ -1,8 +1,9 @@
 import proxyAddr from 'proxy-addr'
 import { TLSSocket } from 'node:tls'
-import { IBlueprint } from '@stone-js/core'
 import { IncomingMessage } from 'node:http'
 import { NextPipe } from '@stone-js/pipeline'
+import { NODE_HTTP_PLATFORM } from '../constants'
+import { classMiddleware, IBlueprint } from '@stone-js/core'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
 import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../declarations'
 import {
@@ -80,14 +81,28 @@ export class IncomingEventMiddleware {
       .add('ips', ipAddresses)
       .add('queryString', url.search)
       .add('method', context.rawEvent.method)
-      .add('source', context.executionContext)
+      .add('source', this.getSource(context))
       .add('headers', context.rawEvent.headers)
       .add('protocol', this.getProtocol(context.rawEvent, proxyOptions))
-      .add('metadata', { node: { message: context.rawEvent, response: context.rawResponse } })
       .add('ip', proxyAddr(context.rawEvent, isIpTrusted(proxyOptions.trustedIp, proxyOptions.untrustedIp)))
       .add('cookies', CookieCollection.create(context.rawEvent.headers.cookie, cookieOptions, this.getCookieSecret()))
 
     return await next(context)
+  }
+
+  /**
+   * Create the IncomingEventSource from the context.
+   *
+   * @param context - The adapter context containing the raw event, execution context, and other data.
+   * @returns The Incoming Event Source.
+   */
+  private getSource (context: NodeHttpAdapterContext): unknown {
+    return {
+      rawEvent: context.rawEvent,
+      platform: NODE_HTTP_PLATFORM,
+      rawResponse: context.rawResponse,
+      rawContext: context.executionContext
+    }
   }
 
   /**
@@ -156,3 +171,8 @@ export class IncomingEventMiddleware {
     return getProtocol(message.socket.remoteAddress ?? '', message.headers, message.socket instanceof TLSSocket, options)
   }
 }
+
+/**
+ * Meta Middleware for processing incoming events.
+ */
+export const MetaIncomingEventMiddleware = classMiddleware(IncomingEventMiddleware)

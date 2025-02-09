@@ -8,7 +8,7 @@
 
 > **nodeHttpAdapterResolver**(`blueprint`): `IAdapter`
 
-Defined in: [src/resolvers.ts:18](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/resolvers.ts#L18)
+Defined in: [node-http-adapter/src/resolvers.ts:18](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/resolvers.ts#L18)
 
 Resolver function for the HTTP adapter.
 

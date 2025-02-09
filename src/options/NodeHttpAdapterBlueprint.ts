@@ -1,20 +1,21 @@
 import { NODE_HTTP_PLATFORM } from '../constants'
-import { NodeServerOptions } from '../declarations'
 import { nodeHttpAdapterResolver } from '../resolvers'
-import { AdapterConfig, StoneBlueprint } from '@stone-js/core'
 import { NodeHttpErrorHandler } from '../NodeHttpErrorHandler'
-import { IncomingHttpEvent, OutgoingHttpResponse } from '@stone-js/http-core'
-import { IncomingEventMiddleware } from '../middleware/IncomingEventMiddleware'
-import { ServerResponseMiddleware } from '../middleware/ServerResponseMiddleware'
+import { NodeServerOptions, ServerMiddleware } from '../declarations'
+import { AdapterConfig, AppConfig, StoneBlueprint } from '@stone-js/core'
+import { metaAdapterConfigMiddlewares } from '../middleware/configMiddleware'
+import { MetaIncomingEventMiddleware } from '../middleware/IncomingEventMiddleware'
+import { MetaServerResponseMiddleware } from '../middleware/ServerResponseMiddleware'
+import { HttpConfig, IncomingHttpEvent, OutgoingHttpResponse, httpCoreBlueprint } from '@stone-js/http-core'
 
 /**
- * NodeHttpAdapterConfig Interface.
+ * NodeHttpAdapterAdapterConfig Interface.
  *
  * This interface defines the configuration options for the Node HTTP adapter
  * within the Stone.js framework. It includes settings such as the adapter's alias,
  * resolver, middleware, hooks, and server configurations.
  */
-export interface NodeHttpAdapterConfig extends AdapterConfig {
+export interface NodeHttpAdapterAdapterConfig extends AdapterConfig {
   /**
    * The base URL used by the node http to run the application.
    */
@@ -24,6 +25,22 @@ export interface NodeHttpAdapterConfig extends AdapterConfig {
    * Additional server configurations for the Node HTTP server.
    */
   server: NodeServerOptions
+
+  /**
+   * The platform middleware used for processing platform node HTTP requests and responses.
+   * This middleware is executed before the adapter middleware.
+   * This middleware is lower-level and should be used for platform-specific processing.
+   * You can connect or express like middleware here to process request just before the Stone adapter middleware.
+   */
+  serverMiddleware: ServerMiddleware[]
+}
+
+/**
+ * Represents the NodeHttpAdapter configuration options for the application.
+ */
+export interface NodeHttpAdapterConfig extends Partial<AppConfig<IncomingHttpEvent, OutgoingHttpResponse>> {
+  http: Partial<HttpConfig>
+  adapters: NodeHttpAdapterAdapterConfig[]
 }
 
 /**
@@ -37,9 +54,7 @@ export interface NodeHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEve
   /**
    * Application-level settings, including environment, middleware, logging, and service registration.
    */
-  stone: {
-    adapters: NodeHttpAdapterConfig[]
-  }
+  stone: NodeHttpAdapterConfig
 }
 
 /**
@@ -49,22 +64,27 @@ export interface NodeHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEve
  */
 export const nodeHttpAdapterBlueprint: NodeHttpAdapterBlueprint = {
   stone: {
+    ...httpCoreBlueprint.stone,
+    builder: {
+      middleware: metaAdapterConfigMiddlewares
+    },
     adapters: [
       {
+        hooks: {},
+        server: {},
+        current: false,
+        default: false,
+        serverMiddleware: [],
+        url: 'http://localhost:8080',
         platform: NODE_HTTP_PLATFORM,
         resolver: nodeHttpAdapterResolver,
         middleware: [
-          { priority: 0, pipe: IncomingEventMiddleware },
-          { priority: 10, pipe: ServerResponseMiddleware }
+          MetaIncomingEventMiddleware,
+          MetaServerResponseMiddleware
         ],
-        hooks: {},
         errorHandlers: {
-          default: NodeHttpErrorHandler
-        },
-        current: false,
-        default: false,
-        url: 'http://localhost:8080',
-        server: {}
+          default: { module: NodeHttpErrorHandler, isClass: true }
+        }
       }
     ]
   }

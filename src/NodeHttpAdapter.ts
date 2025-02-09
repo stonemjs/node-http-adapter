@@ -1,3 +1,4 @@
+import connect from 'connect'
 import onFinished from 'on-finished'
 import { createServer as createHttpsServer } from 'node:https'
 import { ServerResponseWrapper } from './ServerResponseWrapper'
@@ -7,7 +8,7 @@ import {
   Adapter,
   AdapterOptions,
   AdapterEventBuilder,
-  LifecycleEventHandler
+  LifecycleAdapterEventHandler
 } from '@stone-js/core'
 import {
   IncomingHttpEvent,
@@ -16,6 +17,7 @@ import {
 } from '@stone-js/http-core'
 import {
   NodeHttpServer,
+  ServerMiddleware,
   NodeHttpServerOptions,
   NodeHttpAdapterContext,
   NodeHttpsServerOptions,
@@ -150,7 +152,7 @@ NodeHttpAdapterContext
    * @param context - The context for the lifecycle event.
    */
   protected async onTerminate (
-    eventHandler: LifecycleEventHandler<IncomingHttpEvent, OutgoingHttpResponse>,
+    eventHandler: LifecycleAdapterEventHandler<IncomingHttpEvent, OutgoingHttpResponse>,
     context: NodeHttpAdapterContext
   ): Promise<void> {
     if (context.rawResponse !== undefined) {
@@ -169,7 +171,7 @@ NodeHttpAdapterContext
    * @protected
    */
   protected async eventListener (rawEvent: IncomingMessage, rawResponse: ServerResponse): Promise<ServerResponse> {
-    const eventHandler = this.handlerResolver(this.blueprint) as LifecycleEventHandler<IncomingHttpEvent, OutgoingHttpResponse>
+    const eventHandler = this.handlerResolver(this.blueprint) as LifecycleAdapterEventHandler<IncomingHttpEvent, OutgoingHttpResponse>
 
     await this.onPrepare(eventHandler)
 
@@ -198,14 +200,23 @@ NodeHttpAdapterContext
    * @protected
    */
   protected createServer (): NodeHttpServer {
+    // Create a connect app to handle server middleware
+    const app = connect()
+
+    this
+      .blueprint
+      .get<ServerMiddleware[]>('stone.adapter.serverMiddleware', [])
+      .forEach((middleware) => app.use(middleware))
+
+    /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+    app.use(async (message, response) => await this.eventListener(message, response))
+
     if (this.url.protocol.includes('https')) {
       const options = this.blueprint.get<NodeHttpsServerOptions>('stone.adapter.server', {})
-      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-      return createHttpsServer(options, async (message, response) => await this.eventListener(message, response))
+      return createHttpsServer(options, app)
     } else {
       const options = this.blueprint.get<NodeHttpServerOptions>('stone.adapter.server', {})
-      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-      return createServer(options, async (message, response) => await this.eventListener(message, response))
+      return createServer(options, app)
     }
   }
 

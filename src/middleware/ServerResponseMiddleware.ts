@@ -1,8 +1,8 @@
 import statuses from 'statuses'
-import { IBlueprint } from '@stone-js/core'
 import { NextPipe } from '@stone-js/pipeline'
-import { BinaryFileResponse, streamFile } from '@stone-js/http-core'
+import { classMiddleware, IBlueprint } from '@stone-js/core'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
+import { BinaryFileResponse, streamFile, StreamFileOptions } from '@stone-js/http-core'
 import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../declarations'
 
 /**
@@ -49,7 +49,7 @@ export class ServerResponseMiddleware {
     if (!context.incomingEvent.isMethod('HEAD')) {
       if (context.outgoingResponse instanceof BinaryFileResponse) {
         const file = context.outgoingResponse.file
-        const options = this.blueprint.get<unknown>('stone.http.files.download', {})
+        const options = this.blueprint.get<StreamFileOptions>('stone.http.files.download', {} as any)
         rawResponseBuilder
           .add('streamFile', async () => await streamFile(context.rawEvent, context.rawResponse, file, options))
       } else {
@@ -62,3 +62,8 @@ export class ServerResponseMiddleware {
     return rawResponseBuilder
   }
 }
+
+/**
+ * Meta Middleware for processing server responses.
+ */
+export const MetaServerResponseMiddleware = classMiddleware(ServerResponseMiddleware)

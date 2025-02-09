@@ -66,6 +66,23 @@ OutgoingHttpResponse
 export type NodeHttpAdapterResponseBuilder = IAdapterEventBuilder<RawHttpResponseOptions, ServerResponseWrapper>
 
 /**
+ * Represents a platform server middleware function that processes HTTP requests and responses.
+ *
+ * Middleware functions are called with the HTTP request, response objects, and a `next` function
+ * to pass control to the next middleware in the stack. Middleware can modify the request and
+ * response objects, or handle them completely.
+ *
+ * @param req - The HTTP request object, extended with custom properties.
+ * @param res - The HTTP response object, extended with custom properties.
+ * @param next - A callback to pass control to the next middleware. If called with an error, it invokes the error-handling middleware.
+ */
+export type ServerMiddleware = (
+  req: IncomingMessage & Record<string, any>,
+  res: ServerResponse & Record<string, any>,
+  next: (err?: any) => void
+) => void
+
+/**
  * Represents options for configuring a raw HTTP response.
  *
  * Extends the `RawResponseOptions` interface to include additional properties

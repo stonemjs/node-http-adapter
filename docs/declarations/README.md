@@ -18,3 +18,4 @@
 - [NodeHttpServerOptions](type-aliases/NodeHttpServerOptions.md)
 - [NodeHttpsServerOptions](type-aliases/NodeHttpsServerOptions.md)
 - [NodeServerOptions](type-aliases/NodeServerOptions.md)
+- [ServerMiddleware](type-aliases/ServerMiddleware.md)

@@ -2,20 +2,21 @@
 
 ***
 
-[Node Adapter Documentation](../../../modules.md) / [decorators/NodeHttp](../README.md) / NodeHttpOptions
+[Node Adapter Documentation](../../../modules.md) / [options/NodeHttpAdapterBlueprint](../README.md) / NodeHttpAdapterAdapterConfig
 
-# Interface: NodeHttpOptions
+# Interface: NodeHttpAdapterAdapterConfig
 
-Defined in: [node-http-adapter/src/decorators/NodeHttp.ts:11](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/decorators/NodeHttp.ts#L11)
+Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:18](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L18)
 
-Interface for configuring the `NodeHttp` decorator.
+NodeHttpAdapterAdapterConfig Interface.
 
-This interface extends `NodeHttpAdapterConfig` and allows partial customization
-of the Node.js HTTP adapter blueprint configuration.
+This interface defines the configuration options for the Node HTTP adapter
+within the Stone.js framework. It includes settings such as the adapter's alias,
+resolver, middleware, hooks, and server configurations.
 
 ## Extends
 
-- `Partial`\<[`NodeHttpAdapterAdapterConfig`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md)\>
+- `AdapterConfig`
 
 ## Properties
 
@@ -31,7 +32,7 @@ Optional property.
 
 #### Inherited from
 
-`Partial.alias`
+`AdapterConfig.alias`
 
 ***
 
@@ -47,7 +48,7 @@ Optional property.
 
 #### Inherited from
 
-`Partial.current`
+`AdapterConfig.current`
 
 ***
 
@@ -62,13 +63,13 @@ Optional property.
 
 #### Inherited from
 
-`Partial.default`
+`AdapterConfig.default`
 
 ***
 
-### errorHandlers?
+### errorHandlers
 
-> `optional` **errorHandlers**: `Record`\<`string`, `MetaAdapterErrorHandler`\>
+> **errorHandlers**: `Record`\<`string`, `MetaAdapterErrorHandler`\>
 
 Defined in: core/dist/index.d.ts:419
 
@@ -77,7 +78,7 @@ These handlers can be used to customize error handling behavior and logging.
 
 #### Inherited from
 
-`Partial.errorHandlers`
+`AdapterConfig.errorHandlers`
 
 ***
 
@@ -92,13 +93,13 @@ These hooks can be used to extend the adapter's functionality at various points.
 
 #### Inherited from
 
-`Partial.hooks`
+`AdapterConfig.hooks`
 
 ***
 
-### middleware?
+### middleware
 
-> `optional` **middleware**: `MixedPipe`\<`any`, `any`\>[]
+> **middleware**: `MixedPipe`\<`any`, `any`\>[]
 
 Defined in: core/dist/index.d.ts:414
 
@@ -107,13 +108,13 @@ Middleware can modify or handle events at different stages of the adapter's life
 
 #### Inherited from
 
-`Partial.middleware`
+`AdapterConfig.middleware`
 
 ***
 
-### platform?
+### platform
 
-> `optional` **platform**: `string`
+> **platform**: `string`
 
 Defined in: core/dist/index.d.ts:405
 
@@ -122,13 +123,13 @@ This is used to categorize the adapter based on the environment or technology it
 
 #### Inherited from
 
-`Partial.platform`
+`AdapterConfig.platform`
 
 ***
 
-### resolver?
+### resolver
 
-> `optional` **resolver**: `AdapterResolver`
+> **resolver**: `AdapterResolver`
 
 Defined in: core/dist/index.d.ts:409
 
@@ -136,27 +137,23 @@ The class type resolver used to create instances of the adapter.
 
 #### Inherited from
 
-`Partial.resolver`
+`AdapterConfig.resolver`
 
 ***
 
-### server?
+### server
 
-> `optional` **server**: [`NodeServerOptions`](../../../declarations/type-aliases/NodeServerOptions.md)
+> **server**: [`NodeServerOptions`](../../../declarations/type-aliases/NodeServerOptions.md)
 
 Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:27](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L27)
 
 Additional server configurations for the Node HTTP server.
 
-#### Inherited from
-
-`Partial.server`
-
 ***
 
-### serverMiddleware?
+### serverMiddleware
 
-> `optional` **serverMiddleware**: [`ServerMiddleware`](../../../declarations/type-aliases/ServerMiddleware.md)[]
+> **serverMiddleware**: [`ServerMiddleware`](../../../declarations/type-aliases/ServerMiddleware.md)[]
 
 Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:35](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L35)
 
@@ -165,20 +162,12 @@ This middleware is executed before the adapter middleware.
 This middleware is lower-level and should be used for platform-specific processing.
 You can connect or express like middleware here to process request just before the Stone adapter middleware.
 
-#### Inherited from
-
-`Partial.serverMiddleware`
-
 ***
 
-### url?
+### url
 
-> `optional` **url**: `string`
+> **url**: `string`
 
 Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:22](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L22)
 
 The base URL used by the node http to run the application.
-
-#### Inherited from
-
-`Partial.url`

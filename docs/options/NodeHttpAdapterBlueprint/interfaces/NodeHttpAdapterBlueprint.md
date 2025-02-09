@@ -6,7 +6,7 @@
 
 # Interface: NodeHttpAdapterBlueprint
 
-Defined in: [src/options/NodeHttpAdapterBlueprint.ts:36](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/options/NodeHttpAdapterBlueprint.ts#L36)
+Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:53](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L53)
 
 Stone blueprint.
 
@@ -26,15 +26,11 @@ while allowing additional custom options to be added.
 
 ### stone
 
-> **stone**: `object`
+> **stone**: [`NodeHttpAdapterConfig`](NodeHttpAdapterConfig.md)
 
-Defined in: [src/options/NodeHttpAdapterBlueprint.ts:40](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/options/NodeHttpAdapterBlueprint.ts#L40)
+Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:57](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L57)
 
 Application-level settings, including environment, middleware, logging, and service registration.
-
-#### adapters
-
-> **adapters**: [`NodeHttpAdapterConfig`](NodeHttpAdapterConfig.md)[]
 
 #### Overrides
 

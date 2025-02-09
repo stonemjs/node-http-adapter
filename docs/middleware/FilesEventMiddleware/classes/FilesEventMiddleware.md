@@ -6,7 +6,7 @@
 
 # Class: FilesEventMiddleware
 
-Defined in: [src/middleware/FilesEventMiddleware.ts:12](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/FilesEventMiddleware.ts#L12)
+Defined in: [node-http-adapter/src/middleware/FilesEventMiddleware.ts:12](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/middleware/FilesEventMiddleware.ts#L12)
 
 Class representing a FilesEventMiddleware.
 
@@ -20,7 +20,7 @@ Mr. Stone <evensstone@gmail.com>
 
 > **new FilesEventMiddleware**(`options`): [`FilesEventMiddleware`](FilesEventMiddleware.md)
 
-Defined in: [src/middleware/FilesEventMiddleware.ts:23](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/FilesEventMiddleware.ts#L23)
+Defined in: [node-http-adapter/src/middleware/FilesEventMiddleware.ts:23](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/middleware/FilesEventMiddleware.ts#L23)
 
 Create a FilesEventMiddleware.
 
@@ -44,7 +44,7 @@ Options for creating the FilesEventMiddleware.
 
 > **handle**(`context`, `next`): `Promise`\<[`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
 
-Defined in: [src/middleware/FilesEventMiddleware.ts:36](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/FilesEventMiddleware.ts#L36)
+Defined in: [node-http-adapter/src/middleware/FilesEventMiddleware.ts:36](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/middleware/FilesEventMiddleware.ts#L36)
 
 Handles the incoming event, processes it, and invokes the next middleware in the pipeline.
 

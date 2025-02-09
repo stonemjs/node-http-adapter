@@ -54,7 +54,7 @@ export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse
 
     await this.streamFile()
 
-    return this.response
+    return this.hasBody() ? this.response : this.response.end()
   }
 
   /**
@@ -103,5 +103,14 @@ export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse
       this.response.end(this.options.body, (this.options.charset ?? 'utf-8') as BufferEncoding)
     }
     return this
+  }
+
+  /**
+   * Determines if the response has a body.
+   *
+   * @returns `true` if the response has a body, `false` otherwise.
+   */
+  private hasBody (): boolean {
+    return this.options.body !== undefined || this.options.streamFile !== undefined
   }
 }

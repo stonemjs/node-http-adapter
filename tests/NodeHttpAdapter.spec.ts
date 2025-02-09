@@ -44,10 +44,6 @@ describe('NodeHTTPAdapter', () => {
       handlerResolver: vi.fn(),
       logger: {
         error: vi.fn()
-      },
-      errorHandler: {
-        render: vi.fn(),
-        report: vi.fn()
       }
     } as any
 

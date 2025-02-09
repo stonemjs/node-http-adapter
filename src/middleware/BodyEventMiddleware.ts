@@ -3,8 +3,8 @@ import typeIs from 'type-is'
 import rawBody from 'raw-body'
 import bodyParser from 'co-body'
 import { IncomingMessage } from 'node:http'
-import { IBlueprint } from '@stone-js/core'
 import { NextPipe } from '@stone-js/pipeline'
+import { classMiddleware, IBlueprint } from '@stone-js/core'
 import { isMultipart, getCharset } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
 import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../declarations'
@@ -55,7 +55,12 @@ export class BodyEventMiddleware {
     }
 
     if (!isMultipart(context.rawEvent)) {
-      context.incomingEventBuilder.add('body', await this.getBody(context.rawEvent))
+      const body = await this.getBody(context.rawEvent)
+
+      context
+        .incomingEventBuilder
+        .add('body', body)
+        .add('metadata', body)
     }
 
     return await next(context)
@@ -97,3 +102,8 @@ export class BodyEventMiddleware {
     }
   }
 }
+
+/**
+ * Meta Middleware for processing the request body.
+ */
+export const MetaBodyEventMiddleware = classMiddleware(BodyEventMiddleware)

@@ -9,3 +9,7 @@
 ## Classes
 
 - [BodyEventMiddleware](classes/BodyEventMiddleware.md)
+
+## Variables
+
+- [MetaBodyEventMiddleware](variables/MetaBodyEventMiddleware.md)
