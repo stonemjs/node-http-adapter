@@ -8,6 +8,6 @@
 
 > `const` **MetaIncomingEventMiddleware**: `MetaMiddleware`\<`IncomingEvent`, `OutgoingResponse`\>
 
-Defined in: [node-http-adapter/src/middleware/IncomingEventMiddleware.ts:178](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/middleware/IncomingEventMiddleware.ts#L178)
+Defined in: [node-http-adapter/src/middleware/IncomingEventMiddleware.ts:180](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/middleware/IncomingEventMiddleware.ts#L180)
 
 Meta Middleware for processing incoming events.

@@ -6,7 +6,7 @@
 
 # Interface: RawHttpResponseOptions
 
-Defined in: [node-http-adapter/src/declarations.ts:91](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L91)
+Defined in: [node-http-adapter/src/declarations.ts:91](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L91)
 
 Represents options for configuring a raw HTTP response.
 
@@ -27,7 +27,7 @@ for managing response content, headers, status codes, and streaming files.
 
 > **body**: `unknown`
 
-Defined in: [node-http-adapter/src/declarations.ts:95](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L95)
+Defined in: [node-http-adapter/src/declarations.ts:95](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L95)
 
 The body of the HTTP response. Can be of any type, including strings, objects, or buffers.
 
@@ -37,7 +37,7 @@ The body of the HTTP response. Can be of any type, including strings, objects, o
 
 > `optional` **charset**: `string`
 
-Defined in: [node-http-adapter/src/declarations.ts:100](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L100)
+Defined in: [node-http-adapter/src/declarations.ts:100](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L100)
 
 The character set used for encoding the response body. Defaults to `utf-8` if not specified.
 
@@ -47,7 +47,7 @@ The character set used for encoding the response body. Defaults to `utf-8` if no
 
 > **headers**: `Headers` \| `Map`\<`string`, `string`\>
 
-Defined in: [node-http-adapter/src/declarations.ts:116](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L116)
+Defined in: [node-http-adapter/src/declarations.ts:116](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L116)
 
 Headers to include in the HTTP response.
 Can be provided as a `Map<string, string>` or `Headers` object.
@@ -58,7 +58,7 @@ Can be provided as a `Map<string, string>` or `Headers` object.
 
 > **statusCode**: `number`
 
-Defined in: [node-http-adapter/src/declarations.ts:105](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L105)
+Defined in: [node-http-adapter/src/declarations.ts:105](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L105)
 
 The HTTP status code of the response (e.g., `200`, `404`).
 
@@ -68,7 +68,7 @@ The HTTP status code of the response (e.g., `200`, `404`).
 
 > **statusMessage**: `string`
 
-Defined in: [node-http-adapter/src/declarations.ts:110](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L110)
+Defined in: [node-http-adapter/src/declarations.ts:110](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L110)
 
 The status message accompanying the HTTP status code (e.g., `OK`, `Not Found`).
 
@@ -78,7 +78,7 @@ The status message accompanying the HTTP status code (e.g., `OK`, `Not Found`).
 
 > **streamFile**: () => `void` \| `Promise`\<`void`\>
 
-Defined in: [node-http-adapter/src/declarations.ts:122](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L122)
+Defined in: [node-http-adapter/src/declarations.ts:122](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L122)
 
 A function to stream a file as the HTTP response.
 Can be synchronous or asynchronous.

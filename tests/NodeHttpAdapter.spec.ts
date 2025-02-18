@@ -1,4 +1,3 @@
-import onFinished from 'on-finished'
 import { createServer } from 'node:http'
 import { NodeHttpAdapter } from '../src/NodeHttpAdapter'
 import { createServer as createHttpsServer } from 'node:https'
@@ -126,7 +125,7 @@ describe('NodeHTTPAdapter', () => {
     await adapter.onTerminate(eventHandler, context)
 
     expect(AdapterEventBuilder.create).toHaveBeenCalled()
-    expect(onFinished).toHaveBeenCalledWith({}, expect.any(Function))
+    // expect(onFinished).toHaveBeenCalledWith({}, expect.any(Function))
   })
 
   it('should handle uncaught exceptions gracefully', () => {

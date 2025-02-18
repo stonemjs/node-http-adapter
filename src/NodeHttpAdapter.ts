@@ -1,5 +1,4 @@
 import connect from 'connect'
-import onFinished from 'on-finished'
 import { createServer as createHttpsServer } from 'node:https'
 import { ServerResponseWrapper } from './ServerResponseWrapper'
 import { NodeHttpAdapterError } from './errors/NodeHttpAdapterError'
@@ -113,7 +112,7 @@ NodeHttpAdapterContext
    * ```
    */
   public async run<ExecutionResultType = NodeHttpServer>(): Promise<ExecutionResultType> {
-    await this.onInit()
+    await this.onStart()
 
     return await new Promise((resolve, reject) => {
       this.server
@@ -130,35 +129,17 @@ NodeHttpAdapterContext
    *
    * @throws {NodeHttpAdapterError} If the adapter is used outside a Node.js context.
    */
-  protected async onInit (): Promise<void> {
+  protected async onStart (): Promise<void> {
     if (typeof window === 'object') {
       throw new NodeHttpAdapterError(
         'This `NodeHTTPAdapter` must be used only in Node.js context.'
       )
     }
 
-    this.catchUncaughtExceptionListener()
+    this.setupShutdownHook()
+    this.setupGlobalErrorHandlers()
 
-    await super.onInit()
-  }
-
-  /**
-   * Lifecycle hook for adapter termination.
-   *
-   * This method is called when the adapter needs to gracefully terminate,
-   * ensuring all responses are completed before shutdown.
-   *
-   * @param eventHandler - The lifecycle event handler.
-   * @param context - The context for the lifecycle event.
-   */
-  protected async onTerminate (
-    eventHandler: LifecycleAdapterEventHandler<IncomingHttpEvent, OutgoingHttpResponse>,
-    context: NodeHttpAdapterContext
-  ): Promise<void> {
-    if (context.rawResponse !== undefined) {
-      /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-      onFinished(context.rawResponse, async () => await super.onTerminate(eventHandler, context))
-    }
+    await super.onStart()
   }
 
   /**
@@ -173,8 +154,6 @@ NodeHttpAdapterContext
   protected async eventListener (rawEvent: IncomingMessage, rawResponse: ServerResponse): Promise<ServerResponse> {
     const eventHandler = this.handlerResolver(this.blueprint) as LifecycleAdapterEventHandler<IncomingHttpEvent, OutgoingHttpResponse>
 
-    await this.onPrepare(eventHandler)
-
     const incomingEventBuilder = AdapterEventBuilder.create<IncomingHttpEventOptions, IncomingHttpEvent>({
       resolver: (options) => IncomingHttpEvent.create(options)
     })
@@ -183,13 +162,28 @@ NodeHttpAdapterContext
       resolver: (options) => ServerResponseWrapper.create(rawResponse, options)
     })
 
-    return await this.sendEventThroughDestination(eventHandler, {
+    const context: NodeHttpAdapterContext = {
       rawEvent,
       rawResponse,
       rawResponseBuilder,
       incomingEventBuilder,
       executionContext: this.server
-    })
+    }
+
+    rawEvent
+      .on('error', (error) => {
+        rawResponse.statusCode = 400
+        this.logger.error('Error in incoming event.', { error })
+      })
+
+    rawResponse
+      .on('error', (error) => {
+        this.logger.error('Error in outgoing response.', { error })
+      })
+
+    await this.onPrepare(eventHandler)
+
+    return await this.sendEventThroughDestination(eventHandler, context)
   }
 
   /**
@@ -221,21 +215,38 @@ NodeHttpAdapterContext
   }
 
   /**
-   * Adds listeners for uncaught exceptions and unhandled promise rejections.
-   *
-   * Logs errors and ensures the server shuts down gracefully in case of critical errors.
+   * Sets up global error handlers for uncaught exceptions and unhandled rejections.
+   * Ensures critical errors are logged and the process exits safely.
    *
    * @protected
    */
-  protected catchUncaughtExceptionListener (): void {
+  protected setupGlobalErrorHandlers (): void {
     process
       .on('uncaughtException', (error) => {
-        this.logger.error('Uncaught exception detected.', { error })
+        this.logger.error('Uncaught exception detected. Shutting down...', { error })
+
         this.server.close(() => process.exit(1))
         setTimeout(() => process.abort(), 1000).unref()
       })
       .on('unhandledRejection', (reason, promise) => {
-        this.logger.error(`Unhandled Rejection at: ${String(promise)}, reason: ${String(reason)}`)
+        this.logger.error('Unhandled promise rejection detected.', {
+          promise: String(promise),
+          reason: String(reason)
+        })
       })
+  }
+
+  /**
+   * Sets up a shutdown listener to gracefully stop the server on SIGINT.
+   *
+   * @protected
+   */
+  protected setupShutdownHook (): void {
+    /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+    process.on('SIGINT', async () => {
+      this.logger.info('Received SIGINT. Initiating graceful shutdown...')
+      await this.onStop()
+      this.server.close(() => process.exit(0))
+    })
   }
 }

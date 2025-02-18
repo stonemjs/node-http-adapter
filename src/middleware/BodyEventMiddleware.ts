@@ -61,6 +61,8 @@ export class BodyEventMiddleware {
         .incomingEventBuilder
         .add('body', body)
         .add('metadata', body)
+        // In fullstack forms, the method is spoofed and sent as a hidden field
+        .add('method', (body as any).$method$ ?? context.rawEvent.method)
     }
 
     return await next(context)

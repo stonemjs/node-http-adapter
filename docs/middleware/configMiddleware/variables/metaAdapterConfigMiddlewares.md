@@ -8,7 +8,7 @@
 
 > `const` **metaAdapterConfigMiddlewares**: `MetaPipe`\<`ConfigContext`\<`IBlueprint`, `ClassType`\>, `IBlueprint`\>[]
 
-Defined in: node-http-adapter/src/middleware/configMiddleware.ts:35
+Defined in: [node-http-adapter/src/middleware/configMiddleware.ts:43](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/middleware/configMiddleware.ts#L43)
 
 Configuration for adapter processing middleware.
 

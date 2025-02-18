@@ -41,7 +41,7 @@ export class NodeHttpErrorHandler implements IAdapterErrorHandler<IncomingMessag
    */
   public async handle (error: Error, context: AdapterErrorContext<IncomingMessage, ServerResponse, NodeHttpServer>): Promise<ServerResponse> {
     const type = accepts(context.rawEvent).type(['json', 'html']) as string | false
-    const contentType = mime.getType(type !== false ? type : 'txt') ?? 'text/plain'
+    const contentType = mime.getType(type !== false ? type : 'txt') ?? context.rawEvent.headers['content-type'] ?? 'text/plain'
     const headers = new Headers({ 'Content-Type': contentType })
 
     context

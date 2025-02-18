@@ -80,9 +80,11 @@ export class IncomingEventMiddleware {
       .add('url', url)
       .add('ips', ipAddresses)
       .add('queryString', url.search)
-      .add('method', context.rawEvent.method)
       .add('source', this.getSource(context))
       .add('headers', context.rawEvent.headers)
+      // If not defined by other middleware
+      // In fullstack forms, the method is spoofed and sent as a hidden field
+      .addIf('method', context.rawEvent.method)
       .add('protocol', this.getProtocol(context.rawEvent, proxyOptions))
       .add('ip', proxyAddr(context.rawEvent, isIpTrusted(proxyOptions.trustedIp, proxyOptions.untrustedIp)))
       .add('cookies', CookieCollection.create(context.rawEvent.headers.cookie, cookieOptions, this.getCookieSecret()))

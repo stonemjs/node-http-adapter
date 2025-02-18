@@ -46,6 +46,8 @@ export class FilesEventMiddleware {
         .incomingEventBuilder
         .add('files', response.files)
         .add('body', response.fields)
+        // In fullstack forms, the method is spoofed and sent as a hidden field
+        .add('method', response.fields.$method$ ?? context.rawEvent.method)
     }
 
     return await next(context)

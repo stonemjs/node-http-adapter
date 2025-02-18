@@ -6,7 +6,7 @@
 
 # Interface: NodeHttpAdapterConfig
 
-Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:41](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L41)
+Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:41](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/options/NodeHttpAdapterBlueprint.ts#L41)
 
 Represents the NodeHttpAdapter configuration options for the application.
 
@@ -35,7 +35,7 @@ This key allow you to specify the current adapter with the alias key.
 
 > **adapters**: [`NodeHttpAdapterAdapterConfig`](NodeHttpAdapterAdapterConfig.md)[]
 
-Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:43](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L43)
+Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:43](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/options/NodeHttpAdapterBlueprint.ts#L43)
 
 Adapter configurations for the application.
 
@@ -154,7 +154,7 @@ Every Stone.js application must have an handler function.
 
 > **http**: `Partial`\<`HttpConfig`\>
 
-Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:42](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/options/NodeHttpAdapterBlueprint.ts#L42)
+Defined in: [node-http-adapter/src/options/NodeHttpAdapterBlueprint.ts:42](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/options/NodeHttpAdapterBlueprint.ts#L42)
 
 ***
 

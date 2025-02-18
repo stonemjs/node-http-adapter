@@ -56,6 +56,7 @@
     "@stone-js/config": "file:/Users/evenspierre/Projects/StoneJS/config",
     "@stone-js/pipeline": "file:/Users/evenspierre/Projects/StoneJS/pipeline",
     "@stone-js/http-core": "file:/Users/evenspierre/Projects/StoneJS/http-core",
+    "@stone-js/filesystem": "file:/Users/evenspierre/Projects/StoneJS/filesystem",
     "@stone-js/service-container": "file:/Users/evenspierre/Projects/StoneJS/service-container"
   },
   "dependencies": {
@@ -66,7 +67,6 @@
     "content-type": "^1.0.5",
     "deepmerge": "^4.3.1",
     "mime": "^4.0.4",
-    "on-finished": "^2.4.1",
     "proxy-addr": "^2.0.7",
     "raw-body": "^3.0.0",
     "statuses": "^2.0.1",
@@ -86,7 +86,6 @@
     "@types/content-type": "^1.1.8",
     "@types/mime": "^3.0.4",
     "@types/node": "^22.9.0",
-    "@types/on-finished": "^2.3.4",
     "@types/proxy-addr": "^2.0.3",
     "@types/statuses": "^2.0.5",
     "@types/type-is": "^1.6.6",

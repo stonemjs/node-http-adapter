@@ -8,7 +8,7 @@
 
 > **ServerMiddleware**: (`req`, `res`, `next`) => `void`
 
-Defined in: [node-http-adapter/src/declarations.ts:79](https://github.com/stonemjs/node-http-adapter/blob/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a/src/declarations.ts#L79)
+Defined in: [node-http-adapter/src/declarations.ts:79](https://github.com/stonemjs/node-http-adapter/blob/536e0dac6f971d10122453661aa60ac1371c6317/src/declarations.ts#L79)
 
 Represents a platform server middleware function that processes HTTP requests and responses.
 
