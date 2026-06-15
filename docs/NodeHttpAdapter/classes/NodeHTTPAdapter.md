@@ -11,29 +11,43 @@ ensuring seamless integration with Stone.js.
 
 ## Template
 
+**RawEvent**
+
 The raw HTTP event type (e.g., `IncomingMessage`).
 
 ## Template
+
+**RawResponse**
 
 The raw HTTP response type (e.g., `ServerResponse`).
 
 ## Template
 
+**Server**
+
 The server instance type (e.g., `NodeHttpServer`).
 
 ## Template
+
+**IncomingEvent**
 
 The Stone.js incoming event type (e.g., `IncomingHttpEvent`).
 
 ## Template
 
+**IncomingEventOptions**
+
 Options for creating an incoming event.
 
 ## Template
 
+**OutgoingResponse**
+
 The outgoing response type (e.g., `OutgoingHttpResponse`).
 
 ## Template
+
+**Context**
 
 The adapter context type (e.g., `NodeHttpAdapterContext`).
 

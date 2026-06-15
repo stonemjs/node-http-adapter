@@ -1,7 +1,7 @@
 # Function: NodeHttp()
 
 ```ts
-function NodeHttp<T>(options): ClassDecorator;
+function NodeHttp<T>(options?): ClassDecorator;
 ```
 
 A class decorator for registering a Node.js HTTP adapter in the Stone.js framework.
@@ -20,7 +20,7 @@ The type of the class being decorated, defaulting to `ClassType`.
 
 ## Parameters
 
-### options
+### options?
 
 [`NodeHttpOptions`](../interfaces/NodeHttpOptions.md) = `{}`
 

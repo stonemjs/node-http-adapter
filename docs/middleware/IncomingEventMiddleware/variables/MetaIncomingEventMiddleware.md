@@ -6,7 +6,7 @@ const MetaIncomingEventMiddleware: object;
 
 Meta Middleware for processing incoming events.
 
-## Type declaration
+## Type Declaration
 
 ### isClass
 

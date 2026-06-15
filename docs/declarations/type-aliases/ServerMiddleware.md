@@ -1,4 +1,4 @@
-# Type Alias: ServerMiddleware()
+# Type Alias: ServerMiddleware
 
 ```ts
 type ServerMiddleware = (req, res, next) => void;

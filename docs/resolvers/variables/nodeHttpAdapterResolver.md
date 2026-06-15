@@ -10,6 +10,8 @@ This function creates a `NodeHTTPAdapter` instance, which acts as the bridge bet
 
 ## Param
 
+**blueprint**
+
 The application blueprint for dependency resolution.
 
 ## Returns

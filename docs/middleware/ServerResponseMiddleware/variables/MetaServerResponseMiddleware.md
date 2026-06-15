@@ -6,7 +6,7 @@ const MetaServerResponseMiddleware: object;
 
 Meta Middleware for processing server responses.
 
-## Type declaration
+## Type Declaration
 
 ### isClass
 

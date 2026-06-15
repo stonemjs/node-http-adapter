@@ -6,7 +6,7 @@ const MetaFilesEventMiddleware: object;
 
 Meta Middleware for processing files uploads.
 
-## Type declaration
+## Type Declaration
 
 ### isClass
 
