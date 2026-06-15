@@ -30,7 +30,7 @@ The body of the HTTP response. Can be of any type, including strings, objects, o
 ### charset?
 
 ```ts
-optional charset: string;
+optional charset?: string;
 ```
 
 The character set used for encoding the response body. Defaults to `utf-8` if not specified.
@@ -68,7 +68,7 @@ The status message accompanying the HTTP status code (e.g., `OK`, `Not Found`).
 
 ***
 
-### streamFile()
+### streamFile
 
 ```ts
 streamFile: () => void | Promise<void>;

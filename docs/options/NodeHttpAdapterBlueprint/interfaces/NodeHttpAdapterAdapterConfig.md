@@ -15,7 +15,7 @@ resolver, middleware, hooks, and server configurations.
 ### isSsl?
 
 ```ts
-optional isSsl: boolean;
+optional isSsl?: boolean;
 ```
 
 Determines if the server should use SSL.
@@ -25,7 +25,7 @@ Determines if the server should use SSL.
 ### printUrls?
 
 ```ts
-optional printUrls: boolean;
+optional printUrls?: boolean;
 ```
 
 Determines if the server should print the URL when starting.

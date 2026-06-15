@@ -18,12 +18,12 @@ All notable changes to the "Stone.js Node HTTP Adapter" extension will be docume
 
 * major internal restructuring and cleanup ([#26](https://github.com/stone-foundation/stone-js-node-http-adapter/issues/26)) ([212d5cf](https://github.com/stone-foundation/stone-js-node-http-adapter/commit/212d5cf2d2a30d0b92bae3c6cbab5d343a9eec7e))
 
-## [0.0.22](https://github.com/stonemjs/node-http-adapter/compare/v0.0.21...v0.0.22) (2025-01-06)
+## [0.0.22](https://github.com/stone-foundation/stone-js-node-http-adapter/compare/v0.0.21...v0.0.22) (2025-01-06)
 
 
 ### Features
 
-* implement error handler and update lifecycle hooks ([98d0ead](https://github.com/stonemjs/node-http-adapter/commit/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a))
+* implement error handler and update lifecycle hooks ([98d0ead](https://github.com/stone-foundation/stone-js-node-http-adapter/commit/98d0eadf76b2b9d63c37e48bbb51cdef92f3d34a))
 
 ## [0.0.21](https://github.com/stone-foundation/stone-js-node-http-adapter/compare/v0.0.2...v0.0.21) (2024-12-08)
 

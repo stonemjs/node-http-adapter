@@ -6,7 +6,7 @@ const MetaBodyEventMiddleware: object;
 
 Meta Middleware for processing the request body.
 
-## Type declaration
+## Type Declaration
 
 ### isClass
 

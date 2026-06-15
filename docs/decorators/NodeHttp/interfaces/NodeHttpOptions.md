@@ -14,55 +14,49 @@ of the Node.js HTTP adapter blueprint configuration.
 ### isSsl?
 
 ```ts
-optional isSsl: boolean;
+optional isSsl?: boolean;
 ```
 
 Determines if the server should use SSL.
 
 #### Inherited from
 
-```ts
-Partial.isSsl
-```
+[`NodeHttpAdapterAdapterConfig`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md).[`isSsl`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md#isssl)
 
 ***
 
 ### printUrls?
 
 ```ts
-optional printUrls: boolean;
+optional printUrls?: boolean;
 ```
 
 Determines if the server should print the URL when starting.
 
 #### Inherited from
 
-```ts
-Partial.printUrls
-```
+[`NodeHttpAdapterAdapterConfig`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md).[`printUrls`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md#printurls)
 
 ***
 
 ### server?
 
 ```ts
-optional server: NodeServerOptions;
+optional server?: NodeServerOptions;
 ```
 
 Additional server configurations for the Node HTTP server.
 
 #### Inherited from
 
-```ts
-Partial.server
-```
+[`NodeHttpAdapterAdapterConfig`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md).[`server`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md#server)
 
 ***
 
 ### serverMiddleware?
 
 ```ts
-optional serverMiddleware: ServerMiddleware[];
+optional serverMiddleware?: ServerMiddleware[];
 ```
 
 The platform middleware used for processing platform node HTTP requests and responses.
@@ -72,22 +66,18 @@ You can connect or express like middleware here to process request just before t
 
 #### Inherited from
 
-```ts
-Partial.serverMiddleware
-```
+[`NodeHttpAdapterAdapterConfig`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md).[`serverMiddleware`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md#servermiddleware)
 
 ***
 
 ### url?
 
 ```ts
-optional url: string;
+optional url?: string;
 ```
 
 The base URL used by the node http to run the application.
 
 #### Inherited from
 
-```ts
-Partial.url
-```
+[`NodeHttpAdapterAdapterConfig`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md).[`url`](../../../options/NodeHttpAdapterBlueprint/interfaces/NodeHttpAdapterAdapterConfig.md#url)

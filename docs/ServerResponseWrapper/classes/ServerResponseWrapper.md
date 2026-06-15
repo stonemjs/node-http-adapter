@@ -66,7 +66,7 @@ IRawResponseWrapper.respond
 ### create()
 
 ```ts
-static create(response, options): ServerResponseWrapper;
+static create(response, options?): ServerResponseWrapper;
 ```
 
 Creates a new `ServerResponseWrapper` instance.
@@ -79,7 +79,7 @@ Creates a new `ServerResponseWrapper` instance.
 
 The Node.js `ServerResponse` object to be wrapped.
 
-##### options
+##### options?
 
 `Partial`\<[`RawHttpResponseOptions`](../../declarations/interfaces/RawHttpResponseOptions.md)\> = `{}`
 
