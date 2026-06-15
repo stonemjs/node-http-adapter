@@ -4,6 +4,13 @@ All notable changes to the "Stone.js Node HTTP Adapter" extension will be docume
 
 ## Unreleased
 
+## [0.2.1](https://github.com/stone-foundation/stone-js-node-http-adapter/compare/v0.2.0...v0.2.1) (2026-06-15)
+
+
+### Miscellaneous Chores
+
+* update Stone.js core deps ([#41](https://github.com/stone-foundation/stone-js-node-http-adapter/issues/41)) ([b5d98af](https://github.com/stone-foundation/stone-js-node-http-adapter/commit/b5d98af18faf9d31192c4f4d5ed39006a9576fea))
+
 ## [0.2.0](https://github.com/stone-foundation/stone-js-node-http-adapter/compare/v0.1.0...v0.2.0) (2025-06-16)
 
 
