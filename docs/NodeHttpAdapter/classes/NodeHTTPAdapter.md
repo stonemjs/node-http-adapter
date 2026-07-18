@@ -406,6 +406,35 @@ Adapter.handleEvent
 
 ***
 
+### hardenServer()
+
+```ts
+protected hardenServer(server): NodeHttpServer;
+```
+
+Applies denial-of-service hardening to the HTTP(S) server.
+
+Sets strict defaults for header count and connection timeouts (Slowloris, socket
+exhaustion, header floods). Every knob is overridable via `stone.adapter.server`
+(e.g. `{ headersTimeout: 30000, maxHeadersCount: 60 }`); `maxRequestsPerSocket` is
+only applied when explicitly configured.
+
+#### Parameters
+
+##### server
+
+[`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md)
+
+The freshly created server.
+
+#### Returns
+
+[`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md)
+
+The hardened server.
+
+***
+
 ### makePipelineOptions()
 
 ```ts

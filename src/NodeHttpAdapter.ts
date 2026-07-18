@@ -206,11 +206,39 @@ NodeHttpAdapterContext
 
     if (this.blueprint.get('stone.adapter.isSsl') === true) {
       const options = this.blueprint.get<NodeHttpsServerOptions>('stone.adapter.server', {})
-      return createHttpsServer(options, app)
+      return this.hardenServer(createHttpsServer(options, app))
     } else {
       const options = this.blueprint.get<NodeHttpServerOptions>('stone.adapter.server', {})
-      return createServer(options, app)
+      return this.hardenServer(createServer(options, app))
     }
+  }
+
+  /**
+   * Applies denial-of-service hardening to the HTTP(S) server.
+   *
+   * Sets strict defaults for header count and connection timeouts (Slowloris, socket
+   * exhaustion, header floods). Every knob is overridable via `stone.adapter.server`
+   * (e.g. `{ headersTimeout: 30000, maxHeadersCount: 60 }`); `maxRequestsPerSocket` is
+   * only applied when explicitly configured.
+   *
+   * @param server - The freshly created server.
+   * @returns The hardened server.
+   *
+   * @protected
+   */
+  protected hardenServer (server: NodeHttpServer): NodeHttpServer {
+    const options = this.blueprint.get<Record<string, number>>('stone.adapter.server', {})
+
+    server.maxHeadersCount = options.maxHeadersCount ?? 100 // default 2000 in Node.
+    server.headersTimeout = options.headersTimeout ?? 60_000 // time to receive all headers (Slowloris).
+    server.requestTimeout = options.requestTimeout ?? 300_000 // time to receive the full request.
+    server.keepAliveTimeout = options.keepAliveTimeout ?? 5_000 // idle keep-alive before closing.
+
+    if (typeof options.maxRequestsPerSocket === 'number') {
+      server.maxRequestsPerSocket = options.maxRequestsPerSocket
+    }
+
+    return server
   }
 
   /**

@@ -112,6 +112,23 @@ describe('NodeHttpAdapter', () => {
     expect(server).toBeDefined()
   })
 
+  it('should apply DoS hardening defaults to the server', () => {
+    NodeHttpAdapter.create(blueprint)
+    expect(mockServer.maxHeadersCount).toBe(100)
+    expect(mockServer.headersTimeout).toBe(60_000)
+    expect(mockServer.requestTimeout).toBe(300_000)
+    expect(mockServer.keepAliveTimeout).toBe(5_000)
+    expect(mockServer.maxRequestsPerSocket).toBeUndefined()
+  })
+
+  it('should let stone.adapter.server override hardening knobs', () => {
+    blueprint.set('stone.adapter.server', { maxHeadersCount: 30, headersTimeout: 15_000, maxRequestsPerSocket: 200 })
+    NodeHttpAdapter.create(blueprint)
+    expect(mockServer.maxHeadersCount).toBe(30)
+    expect(mockServer.headersTimeout).toBe(15_000)
+    expect(mockServer.maxRequestsPerSocket).toBe(200)
+  })
+
   it('should print URLs if printUrls=true', async () => {
     vi.mocked(networkInterfaces).mockReturnValue({ eth0: undefined })
     const logger = { info: vi.fn(), error: vi.fn() }
