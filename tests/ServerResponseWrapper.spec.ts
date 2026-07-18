@@ -99,3 +99,54 @@ describe('ServerResponseWrapper', () => {
     expect(mockResponse.end).toHaveBeenCalled()
   })
 })
+
+describe('ServerResponseWrapper — streaming', () => {
+  it('pipes a Web ReadableStream to the response', async () => {
+    const { PassThrough } = await import('node:stream')
+    const res = new PassThrough()
+    const chunks: Buffer[] = []
+    res.on('data', (c: Buffer) => chunks.push(c))
+
+    const encoder = new TextEncoder()
+    const webStream = new ReadableStream<Uint8Array>({
+      start (controller) {
+        controller.enqueue(encoder.encode('hello '))
+        controller.enqueue(encoder.encode('stream'))
+        controller.close()
+      }
+    })
+
+    const wrapper = ServerResponseWrapper.create(res as any, { stream: webStream, statusCode: 200 })
+    await wrapper.respond()
+
+    expect(Buffer.concat(chunks).toString()).toBe('hello stream')
+  })
+
+  it('pipes a Node Readable to the response', async () => {
+    const { PassThrough, Readable } = await import('node:stream')
+    const res = new PassThrough()
+    const chunks: Buffer[] = []
+    res.on('data', (c: Buffer) => chunks.push(c))
+
+    const source = Readable.from(['a', 'b', 'c'])
+    const wrapper = ServerResponseWrapper.create(res as any, { stream: source as any })
+    await wrapper.respond()
+
+    expect(Buffer.concat(chunks).toString()).toBe('abc')
+  })
+
+  it('rejects and destroys the response when the source stream errors', async () => {
+    const { PassThrough, Readable } = await import('node:stream')
+    const res = new PassThrough()
+    res.on('error', () => {}) // swallow the destroy-propagated error
+    const destroySpy = vi.spyOn(res, 'destroy')
+
+    const source = new Readable({
+      read () { this.destroy(new Error('boom')) }
+    })
+
+    const wrapper = ServerResponseWrapper.create(res as any, { stream: source as any })
+    await expect(wrapper.respond()).rejects.toThrow('boom')
+    expect(destroySpy).toHaveBeenCalled()
+  })
+})

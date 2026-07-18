@@ -120,4 +120,11 @@ export interface RawHttpResponseOptions extends RawResponseOptions {
    * Can be synchronous or asynchronous.
    */
   streamFile: () => void | Promise<void>
+
+  /**
+   * A readable stream to pipe as the HTTP response body (streaming SSR, SSE, chunked APIs).
+   * Accepts a Web `ReadableStream` (runtime-agnostic, e.g. from React `renderToReadableStream`)
+   * or a Node `Readable`. When set, it takes precedence over `body`.
+   */
+  stream: ReadableStream<Uint8Array> | NodeJS.ReadableStream
 }

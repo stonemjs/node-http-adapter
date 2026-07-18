@@ -1,3 +1,4 @@
+import { Readable } from 'node:stream'
 import { ServerResponse } from 'node:http'
 import { IRawResponseWrapper } from '@stone-js/core'
 import { RawHttpResponseOptions } from './declarations'
@@ -50,11 +51,44 @@ export class ServerResponseWrapper implements IRawResponseWrapper<ServerResponse
     this
       .setStatus()
       .setHeaders()
-      .sendBody()
+
+    // A readable stream (streaming SSR / SSE) takes precedence over a buffered body.
+    if (this.options.stream !== undefined) {
+      return await this.sendStream()
+    }
+
+    this.sendBody()
 
     await this.streamFile()
 
     return this.hasBody() ? this.response : this.response.end()
+  }
+
+  /**
+   * Pipe a readable stream (Web `ReadableStream` or Node `Readable`) into the response.
+   *
+   * Resolves once the response has finished; rejects (and destroys the response) if the
+   * source stream errors mid-flight.
+   *
+   * @returns The response once fully written.
+   */
+  private async sendStream (): Promise<ServerResponse> {
+    const source = this.options.stream
+    const nodeStream = source instanceof Readable
+      ? source
+      : Readable.fromWeb(source as Parameters<typeof Readable.fromWeb>[0])
+
+    await new Promise<void>((resolve, reject) => {
+      nodeStream.on('error', (error) => {
+        this.response.destroy(error)
+        reject(error)
+      })
+      this.response.on('finish', resolve)
+      this.response.on('close', resolve)
+      nodeStream.pipe(this.response)
+    })
+
+    return this.response
   }
 
   /**
