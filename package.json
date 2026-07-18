@@ -1,6 +1,6 @@
 {
   "name": "@stone-js/node-http-adapter",
-  "version": "0.2.1",
+  "version": "0.8.0",
   "description": "Node HTTP adapter for Stone.js. Run your app on any Node.js HTTP server using the Continuum Architecture.",
   "author": "Mr. Stone <evensstone@gmail.com>",
   "license": "MIT",
@@ -27,6 +27,7 @@
     "/dist"
   ],
   "type": "module",
+  "sideEffects": false,
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -58,18 +59,18 @@
     "prepare": "husky"
   },
   "peerDependencies": {
-    "@stone-js/core": "^0.2.1",
-    "@stone-js/filesystem": "^0.1.2",
-    "@stone-js/http-core": "^0.1.4"
+    "@stone-js/core": "workspace:*",
+    "@stone-js/filesystem": "workspace:*",
+    "@stone-js/http-core": "workspace:*"
   },
   "dependencies": {
+    "@stone-js/config": "workspace:*",
     "accepts": "^1.3.8",
     "bytes": "^3.1.2",
     "chalk": "^5.4.1",
     "co-body": "^6.2.0",
     "connect": "^3.7.0",
     "content-type": "^1.0.5",
-    "deepmerge": "^4.3.1",
     "mime": "^4.0.7",
     "proxy-addr": "^2.0.7",
     "raw-body": "^3.0.0",

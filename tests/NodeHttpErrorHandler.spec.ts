@@ -19,7 +19,8 @@ vi.mock('mime', () => ({
 }))
 
 vi.mock('statuses', () => ({
-  default: { message: { [HTTP_INTERNAL_SERVER_ERROR]: 'Internal Server Error' } }
+  // Literal (not the imported constant): a hoisted vi.mock factory cannot reference imports.
+  default: { message: { 500: 'Internal Server Error' } }
 }))
 
 describe('NodeHttpErrorHandler', () => {

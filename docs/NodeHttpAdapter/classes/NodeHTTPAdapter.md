@@ -95,10 +95,66 @@ NodeHttpAdapterContext
 
 ## Properties
 
+### blueprint
+
+```ts
+protected readonly blueprint: IBlueprint;
+```
+
+#### Inherited from
+
+```ts
+Adapter.blueprint
+```
+
+***
+
+### hooks
+
+```ts
+protected readonly hooks: AdapterHookType<NodeHttpAdapterContext, ServerResponse<IncomingMessage>>;
+```
+
+#### Inherited from
+
+```ts
+Adapter.hooks
+```
+
+***
+
 ### logger
 
 ```ts
 protected readonly logger: ILogger;
+```
+
+***
+
+### middleware
+
+```ts
+protected readonly middleware: AdapterMixedPipeType<NodeHttpAdapterContext, ServerResponse<IncomingMessage>>[];
+```
+
+#### Inherited from
+
+```ts
+Adapter.middleware
+```
+
+***
+
+### resolvedErrorHandlers
+
+```ts
+protected readonly resolvedErrorHandlers: Record<string, IAdapterErrorHandler<RawEventType, RawResponseType, ExecutionContextType>>;
+```
+
+#### Inherited from
+
+```ts
+Adapter.resolvedErrorHandlers
 ```
 
 ***
@@ -118,6 +174,42 @@ protected readonly url: URL;
 ```
 
 ## Methods
+
+### buildRawResponse()
+
+```ts
+protected buildRawResponse(context, eventHandler?): Promise<ServerResponse<IncomingMessage>>;
+```
+
+Build the raw response.
+
+#### Parameters
+
+##### context
+
+[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)
+
+The event context.
+
+##### eventHandler?
+
+`AdapterEventHandlerType`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
+
+The raw response wrapper.
+
+#### Inherited from
+
+```ts
+Adapter.buildRawResponse
+```
+
+***
 
 ### createServer()
 
@@ -165,6 +257,177 @@ A promise resolving to a ServerResponse (e.g., `ServerResponse`).
 
 ***
 
+### executeEventHandlerHooks()
+
+```ts
+protected executeEventHandlerHooks(hook, eventHandler): Promise<void>;
+```
+
+Execute the event handler lifecycle hooks.
+
+#### Parameters
+
+##### hook
+
+`KernelHookName`
+
+The hook to execute.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Inherited from
+
+```ts
+Adapter.executeEventHandlerHooks
+```
+
+***
+
+### executeHooks()
+
+```ts
+protected executeHooks(
+   name, 
+   context?, 
+error?): Promise<void>;
+```
+
+Execute adapter lifecycle hooks.
+
+#### Parameters
+
+##### name
+
+`AdapterHookName`
+
+The hook's name.
+
+##### context?
+
+[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)
+
+The event context.
+
+##### error?
+
+`any`
+
+The error to handle.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Inherited from
+
+```ts
+Adapter.executeHooks
+```
+
+***
+
+### handleError()
+
+```ts
+protected handleError(error, context): Promise<AdapterEventBuilderType<ServerResponse<IncomingMessage>>>;
+```
+
+Handle error.
+
+#### Parameters
+
+##### error
+
+`Error`
+
+The error to handle.
+
+##### context
+
+[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)
+
+The event context.
+
+#### Returns
+
+`Promise`\<`AdapterEventBuilderType`\<`ServerResponse`\<`IncomingMessage`\>\>\>
+
+The raw response.
+
+#### Inherited from
+
+```ts
+Adapter.handleError
+```
+
+***
+
+### handleEvent()
+
+```ts
+protected handleEvent(context, eventHandler): Promise<IAdapterEventBuilder<RawResponseOptions, IRawResponseWrapper<ServerResponse<IncomingMessage>>>>;
+```
+
+Handle the event.
+
+#### Parameters
+
+##### context
+
+[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)
+
+The event context.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<`IAdapterEventBuilder`\<`RawResponseOptions`, `IRawResponseWrapper`\<`ServerResponse`\<`IncomingMessage`\>\>\>\>
+
+The raw response wrapper.
+
+#### Inherited from
+
+```ts
+Adapter.handleEvent
+```
+
+***
+
+### makePipelineOptions()
+
+```ts
+protected makePipelineOptions(): PipelineOptions<NodeHttpAdapterContext, AdapterEventBuilderType<ServerResponse<IncomingMessage>>>;
+```
+
+Create pipeline options for the Adapter.
+
+#### Returns
+
+`PipelineOptions`\<[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md), `AdapterEventBuilderType`\<`ServerResponse`\<`IncomingMessage`\>\>\>
+
+The pipeline options for transforming the event.
+
+#### Inherited from
+
+```ts
+Adapter.makePipelineOptions
+```
+
+***
+
 ### onStart()
 
 ```ts
@@ -183,6 +446,66 @@ such as setting up exception listeners and verifying the runtime environment.
 #### Throws
 
 If the adapter is used outside a Node.js context.
+
+***
+
+### resolveErrorHandler()
+
+```ts
+protected resolveErrorHandler(error): IAdapterErrorHandler<IncomingMessage, ServerResponse<IncomingMessage>, NodeHttpServer>;
+```
+
+Get the error handler for the given error.
+
+#### Parameters
+
+##### error
+
+`Error`
+
+The error to get the handler for.
+
+#### Returns
+
+`IAdapterErrorHandler`\<`IncomingMessage`, `ServerResponse`\<`IncomingMessage`\>, [`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md)\>
+
+The error handler.
+
+#### Throws
+
+IntegrationError
+
+#### Inherited from
+
+```ts
+Adapter.resolveErrorHandler
+```
+
+***
+
+### resolveEventHandler()
+
+```ts
+protected resolveEventHandler(): AdapterEventHandlerType<IncomingHttpEvent, OutgoingHttpResponse>;
+```
+
+Get the event handler for the adapter.
+
+#### Returns
+
+`AdapterEventHandlerType`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+
+The event handler for the adapter.
+
+#### Throws
+
+If the event handler is missing.
+
+#### Inherited from
+
+```ts
+Adapter.resolveEventHandler
+```
 
 ***
 
@@ -226,6 +549,46 @@ Adapter.run
 
 ***
 
+### sendEventThroughDestination()
+
+```ts
+protected sendEventThroughDestination(context, eventHandler): Promise<ServerResponse<IncomingMessage>>;
+```
+
+Send the raw event through the destination.
+
+#### Parameters
+
+##### context
+
+[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)
+
+The event context.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<`ServerResponse`\<`IncomingMessage`\>\>
+
+Platform-specific response.
+
+#### Throws
+
+IntegrationError
+
+#### Inherited from
+
+```ts
+Adapter.sendEventThroughDestination
+```
+
+***
+
 ### setupGlobalErrorHandlers()
 
 ```ts
@@ -252,6 +615,44 @@ Sets up a shutdown listener to gracefully stop the server on SIGINT.
 #### Returns
 
 `void`
+
+***
+
+### validateContextAndEventHandler()
+
+```ts
+protected validateContextAndEventHandler(context, eventHandler): void;
+```
+
+Validate the context and event handler.
+
+#### Parameters
+
+##### context
+
+[`NodeHttpAdapterContext`](../../declarations/interfaces/NodeHttpAdapterContext.md)
+
+The context to validate.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingHttpEvent`, `OutgoingHttpResponse`\>
+
+The event handler to validate.
+
+#### Returns
+
+`void`
+
+#### Throws
+
+IntegrationError
+
+#### Inherited from
+
+```ts
+Adapter.validateContextAndEventHandler
+```
 
 ***
 

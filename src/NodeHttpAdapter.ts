@@ -60,6 +60,7 @@ NodeHttpAdapterContext
   protected readonly url: URL
   protected readonly logger: ILogger
   protected readonly server: NodeHttpServer
+  private signalHandlersBound = false
 
   /**
    * Creates a new `NodeHTTPAdapter` instance.
@@ -112,7 +113,7 @@ NodeHttpAdapterContext
     return await new Promise((resolve, reject) => {
       this.server
         .once('error', (error) => reject(error))
-        .listen(Number(this.url.port), this.url.hostname, () => {
+        .listen(this.resolvePort(), this.url.hostname, () => {
           this.printUrls()
           resolve(this.server as ExecutionResultType)
         })
@@ -219,12 +220,18 @@ NodeHttpAdapterContext
    * @protected
    */
   protected setupGlobalErrorHandlers (): void {
+    // Bind global process listeners only once, even if run() is called again (embedded/multi-adapter
+    // scenarios) — otherwise listeners stack and `process.exit` fires several times.
+    if (this.signalHandlersBound) { return }
+    this.signalHandlersBound = true
+
     process
-      .on('uncaughtException', async (error) => {
+      .on('uncaughtException', (error) => {
         this.logger.error(chalk.red('Uncaught exception detected. Shutting down the server...'), { error })
-        await this.executeHooks('onStop')
-        this.server.close(() => process.exit(1))
+        // Process state is undefined after an uncaught exception: schedule the hard abort FIRST so
+        // shutdown always completes even if the async cleanup never resolves, then best-effort clean.
         setTimeout(() => process.abort(), 1000).unref()
+        void this.executeHooks('onStop').finally(() => this.server.close(() => process.exit(1)))
       })
       .on('unhandledRejection', (reason, promise) => {
         this.logger.error(chalk.red('Unhandled promise rejection detected.'), {
@@ -238,6 +245,9 @@ NodeHttpAdapterContext
    * Sets up a shutdown listener to gracefully stop the server on SIGINT.
    */
   protected setupShutdownHook (): void {
+    // Idempotent alongside setupGlobalErrorHandlers (both bind once; see the shared guard flag).
+    if (this.signalHandlersBound) { return }
+
     const shutdown = async (): Promise<void> => {
       await this.executeHooks('onStop')
       this.server.close(() => process.exit(0))
@@ -246,6 +256,17 @@ NodeHttpAdapterContext
     process
       .on('SIGINT', shutdown)
       .on('SIGTERM', shutdown)
+  }
+
+  /**
+   * Resolve the listen port: the explicit URL port, else the protocol default (443/80) rather
+   * than binding a random port when the configured URL omits the port.
+   *
+   * @returns The port to listen on.
+   */
+  private resolvePort (): number {
+    if (this.url.port !== '') { return Number(this.url.port) }
+    return this.url.protocol === 'https:' ? 443 : 80
   }
 
   /**

@@ -1,4 +1,5 @@
 import { IBlueprint, NextMiddleware } from '@stone-js/core'
+import { resolveMethodOverride } from '../method-override'
 import { isMultipart, getFilesUploads } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
 import { NodeHttpAdapterContext, NodeHttpAdapterResponseBuilder } from '../declarations'
@@ -45,8 +46,10 @@ export class FilesEventMiddleware {
         .incomingEventBuilder
         .add('files', response.files)
         .add('body', response.fields)
-        // In fullstack forms, the method is spoofed and sent as a hidden field
-        .add('method', response.fields.$method$ ?? context.rawEvent.method)
+
+      // In fullstack forms, the method is spoofed; only honour a safe, gated override.
+      const method = resolveMethodOverride(this.blueprint, context.rawEvent, response.fields.$method$)
+      if (method !== undefined) { context.incomingEventBuilder.add('method', method) }
     }
 
     return await next(context)

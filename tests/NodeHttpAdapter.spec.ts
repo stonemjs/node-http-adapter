@@ -244,4 +244,31 @@ describe('NodeHttpAdapter', () => {
       { promise: String(mockPromise), reason: String(mockReason) }
     )
   })
+
+  it('binds global/shutdown handlers only once (idempotent)', () => {
+    const adapter: any = NodeHttpAdapter.create(blueprint)
+    const onSpy = vi.spyOn(process, 'on')
+
+    adapter.setupGlobalErrorHandlers()
+    adapter.setupGlobalErrorHandlers() // second call must be a no-op
+    adapter.setupShutdownHook() // guard already set → no-op
+
+    // uncaughtException + unhandledRejection bound exactly once, no SIGINT/SIGTERM re-bind.
+    expect(onSpy.mock.calls.filter(([e]) => e === 'uncaughtException')).toHaveLength(1)
+    onSpy.mockRestore()
+  })
+
+  it('resolvePort falls back to the protocol default when the URL has no port', () => {
+    blueprint.set('stone.adapter.url', 'https://localhost')
+    const httpsAdapter: any = NodeHttpAdapter.create(blueprint)
+    expect(httpsAdapter.resolvePort()).toBe(443)
+
+    blueprint.set('stone.adapter.url', 'http://localhost')
+    const httpAdapter: any = NodeHttpAdapter.create(blueprint)
+    expect(httpAdapter.resolvePort()).toBe(80)
+
+    blueprint.set('stone.adapter.url', 'http://localhost:3000')
+    const explicit: any = NodeHttpAdapter.create(blueprint)
+    expect(explicit.resolvePort()).toBe(3000)
+  })
 })

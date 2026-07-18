@@ -6,6 +6,7 @@
 - [declarations](declarations/README.md)
 - [decorators/NodeHttp](decorators/NodeHttp/README.md)
 - [errors/NodeHttpAdapterError](errors/NodeHttpAdapterError/README.md)
+- [method-override](method-override/README.md)
 - [middleware/BlueprintMiddleware](middleware/BlueprintMiddleware/README.md)
 - [middleware/BodyEventMiddleware](middleware/BodyEventMiddleware/README.md)
 - [middleware/FilesEventMiddleware](middleware/FilesEventMiddleware/README.md)

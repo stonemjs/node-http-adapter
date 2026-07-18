@@ -3,6 +3,7 @@ import typeIs from 'type-is'
 import rawBody from 'raw-body'
 import bodyParser from 'co-body'
 import { IncomingMessage } from 'node:http'
+import { resolveMethodOverride } from '../method-override'
 import { IBlueprint, NextMiddleware } from '@stone-js/core'
 import { isMultipart, getCharset } from '@stone-js/http-core'
 import { NodeHttpAdapterError } from '../errors/NodeHttpAdapterError'
@@ -54,14 +55,18 @@ export class BodyEventMiddleware {
     }
 
     if (!isMultipart(context.rawEvent)) {
-      const body = await this.getBody(context.rawEvent)
+      const { body, rawBody } = await this.getBody(context.rawEvent)
 
       context
         .incomingEventBuilder
         .add('body', body)
-        .add('metadata', body)
-        // In fullstack forms, the method is spoofed and sent as a hidden field
-        .add('method', (body as any).$method$ ?? context.rawEvent.method)
+        // Expose the untouched payload (webhook signatures, etc.) without confusing it with the
+        // parsed body — instead of dumping the whole parsed body into metadata.
+        .add('metadata', { rawBody })
+
+      // In fullstack forms, the method is spoofed; only honour a safe, gated override.
+      const method = resolveMethodOverride(this.blueprint, context.rawEvent, (body as any)?.$method$)
+      if (method !== undefined) { context.incomingEventBuilder.add('method', method) }
     }
 
     return await next(context)
@@ -74,9 +79,9 @@ export class BodyEventMiddleware {
    * @returns A Promise resolving to the parsed body.
    * @throws {NodeHttpAdapterError} If the body parsing fails or is invalid.
    */
-  private async getBody (message: IncomingMessage): Promise<unknown> {
+  private async getBody (message: IncomingMessage): Promise<{ body: unknown, rawBody?: string | Buffer }> {
     if (!typeIs.hasBody(message)) {
-      return {}
+      return { body: {} }
     }
 
     const defaultOptions = { limit: '100kb', defaultType: 'text/plain', defaultCharset: 'utf-8' }
@@ -87,19 +92,28 @@ export class BodyEventMiddleware {
 
     try {
       switch (typeIs(message, ['urlencoded', 'json', 'text', 'bin']) ?? defaultType) {
-        case 'bin':
-          return await rawBody(message, { length, limit })
-        case 'json':
-          return await bodyParser.json(message, { limit, encoding })
-        case 'text':
-          return await bodyParser.text(message, { limit, encoding })
-        case 'urlencoded':
-          return await bodyParser.form(message, { limit, encoding })
+        case 'bin': {
+          const buffer = await rawBody(message, { length, limit })
+          return { body: buffer, rawBody: buffer }
+        }
+        case 'json': {
+          const { parsed, raw } = await bodyParser.json(message, { limit, encoding, returnRawBody: true })
+          return { body: parsed, rawBody: raw }
+        }
+        case 'text': {
+          const { parsed, raw } = await bodyParser.text(message, { limit, encoding, returnRawBody: true })
+          return { body: parsed, rawBody: raw }
+        }
+        case 'urlencoded': {
+          const { parsed, raw } = await bodyParser.form(message, { limit, encoding, returnRawBody: true })
+          return { body: parsed, rawBody: raw }
+        }
         default:
-          return {}
+          return { body: {} }
       }
     } catch (error: any) {
-      throw new NodeHttpAdapterError('The context is missing required components.', { cause: error })
+      // Surface the real parsing cause (payload too large, invalid JSON…) instead of a copy-paste.
+      throw new NodeHttpAdapterError(`Failed to parse the request body: ${String(error?.message ?? error)}`, { cause: error })
     }
   }
 }

@@ -72,6 +72,16 @@ describe('FilesEventMiddleware', () => {
     expect(next).toHaveBeenCalledWith(mockContext)
   })
 
+  it('applies a safe method override from a POST multipart form', async () => {
+    (mockContext.rawEvent as any).method = 'POST'
+    vi.mocked(isMultipart).mockReturnValue(true)
+    vi.mocked(getFilesUploads).mockResolvedValue({ files: {}, fields: { $method$: 'PUT' } } as any)
+
+    await middleware.handle(mockContext, next)
+
+    expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('method', 'PUT')
+  })
+
   it('should call next even if no multipart files are uploaded', async () => {
     vi.mocked(isMultipart).mockReturnValue(true)
     vi.mocked(getFilesUploads).mockResolvedValue({

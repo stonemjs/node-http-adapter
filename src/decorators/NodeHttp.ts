@@ -1,4 +1,4 @@
-import deepmerge from 'deepmerge'
+import { cloneValue, deepMerge } from '@stone-js/config'
 import { addBlueprint, classDecoratorLegacyWrapper, ClassType } from '@stone-js/core'
 import { nodeHttpAdapterBlueprint, NodeHttpAdapterAdapterConfig } from '../options/NodeHttpAdapterBlueprint'
 
@@ -38,12 +38,14 @@ export interface NodeHttpOptions extends Partial<NodeHttpAdapterAdapterConfig> {
  */
 export const NodeHttp = <T extends ClassType = ClassType>(options: NodeHttpOptions = {}): ClassDecorator => {
   return classDecoratorLegacyWrapper<T>((target: T, context: ClassDecoratorContext<T>): undefined => {
-    if (nodeHttpAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
-      // Deep Merge the provided options with the default Node.js HTTP adapter blueprint
-      nodeHttpAdapterBlueprint.stone.adapters[0] = deepmerge(nodeHttpAdapterBlueprint.stone.adapters[0], options)
+    // Clone the module-level default before merging so decorating a class never mutates the shared
+    // singleton (which would accumulate options across classes/tests).
+    const blueprint = cloneValue(nodeHttpAdapterBlueprint)
+
+    if (blueprint.stone?.adapters?.[0] !== undefined) {
+      blueprint.stone.adapters[0] = deepMerge(blueprint.stone.adapters[0], options)
     }
 
-    // Register the updated blueprint with the target class
-    addBlueprint(target, context, nodeHttpAdapterBlueprint)
+    addBlueprint(target, context, blueprint)
   })
 }

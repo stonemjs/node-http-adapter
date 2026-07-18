@@ -98,13 +98,14 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue(null)
-    vi.mocked(bodyParser.json).mockResolvedValue({ key: 'value' })
+    vi.mocked(bodyParser.json).mockResolvedValue({ parsed: { key: 'value' }, raw: '{"key":"value"}' } as any)
 
     await middleware.handle(mockContext, next)
 
     expect(mockBlueprint.get).toHaveBeenCalledWith('stone.http.body', expect.any(Object))
-    expect(bodyParser.json).toHaveBeenCalledWith(mockContext.rawEvent, { limit: 102400, encoding: 'utf-8' })
+    expect(bodyParser.json).toHaveBeenCalledWith(mockContext.rawEvent, { limit: 102400, encoding: 'utf-8', returnRawBody: true })
     expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('body', { key: 'value' })
+    expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('metadata', { rawBody: '{"key":"value"}' })
     expect(next).toHaveBeenCalledWith(mockContext)
   })
 
@@ -114,11 +115,11 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('text')
-    vi.mocked(bodyParser.text).mockResolvedValue('Hello, world!')
+    vi.mocked(bodyParser.text).mockResolvedValue({ parsed: 'Hello, world!', raw: 'Hello, world!' } as any)
 
     await middleware.handle(mockContext, next)
 
-    expect(bodyParser.text).toHaveBeenCalledWith(mockContext.rawEvent, { limit: 102400, encoding: 'utf-8' })
+    expect(bodyParser.text).toHaveBeenCalledWith(mockContext.rawEvent, { limit: 102400, encoding: 'utf-8', returnRawBody: true })
     expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('body', 'Hello, world!')
     expect(next).toHaveBeenCalledWith(mockContext)
   })
@@ -129,11 +130,11 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(bytes.parse).mockReturnValue(102400)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('urlencoded')
-    vi.mocked(bodyParser.form).mockResolvedValue({ name: 'test' })
+    vi.mocked(bodyParser.form).mockResolvedValue({ parsed: { name: 'test' }, raw: 'name=test' } as any)
 
     await middleware.handle(mockContext, next)
 
-    expect(bodyParser.form).toHaveBeenCalledWith(mockContext.rawEvent, { limit: 102400, encoding: 'utf-8' })
+    expect(bodyParser.form).toHaveBeenCalledWith(mockContext.rawEvent, { limit: 102400, encoding: 'utf-8', returnRawBody: true })
     expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('body', { name: 'test' })
     expect(next).toHaveBeenCalledWith(mockContext)
   })
@@ -153,6 +154,20 @@ describe('BodyEventMiddleware', () => {
     expect(next).toHaveBeenCalledWith(mockContext)
   })
 
+  it('applies a safe method override from a POST form body', async () => {
+    (mockContext.rawEvent as any).method = 'POST'
+    vi.mocked(isMultipart).mockReturnValue(false)
+    vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
+    vi.mocked(getCharset).mockReturnValue('utf-8')
+    vi.mocked(typeIs).mockReturnValue('urlencoded')
+    vi.mocked(bodyParser.form).mockResolvedValue({ parsed: { $method$: 'DELETE' }, raw: '$method$=DELETE' } as any)
+
+    await middleware.handle(mockContext, next)
+
+    expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('method', 'DELETE')
+  })
+
   it('should handle body parsing errors and throw NodeHttpAdapterError', async () => {
     const mockError = new Error('Invalid JSON')
     vi.mocked(isMultipart).mockReturnValue(false)
@@ -161,6 +176,17 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs).mockReturnValue('json')
     vi.mocked(bodyParser.json).mockRejectedValue(mockError)
+
+    await expect(middleware.handle(mockContext, next)).rejects.toThrow(NodeHttpAdapterError)
+  })
+
+  it('wraps a non-Error parsing rejection too', async () => {
+    vi.mocked(isMultipart).mockReturnValue(false)
+    vi.mocked(typeIs.hasBody).mockReturnValue(true)
+    vi.mocked(bytes.parse).mockReturnValue(102400)
+    vi.mocked(getCharset).mockReturnValue('utf-8')
+    vi.mocked(typeIs).mockReturnValue('json')
+    vi.mocked(bodyParser.json).mockRejectedValue('boom' as any)
 
     await expect(middleware.handle(mockContext, next)).rejects.toThrow(NodeHttpAdapterError)
   })
